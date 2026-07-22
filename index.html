@@ -4,163 +4,236 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Syahmi | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Color Palette & Base Styles */
+        /* Vibrant & Professional Color Palette */
         :root {
-            --bg-color: #F9F9F6; /* Soft off-white */
-            --text-color: #2C2C2C; /* Charcoal */
-            --accent-color: #A39171; /* Khaki/Neutral Earth Tone */
+            --bg-color: #F8FAFC; /* Light, airy background */
             --card-bg: #FFFFFF;
+            --text-main: #0F172A; /* Deep slate for readability */
+            --text-muted: #475569;
+            --gradient-primary: linear-gradient(135deg, #4F46E5, #EC4899, #F59E0B); /* Indigo to Pink to Amber */
+            --gradient-secondary: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
+        /* Fun & Energetic Header */
         header {
             text-align: center;
-            padding: 80px 20px;
-            background-color: var(--card-bg);
-            border-bottom: 4px solid var(--accent-color);
+            padding: 100px 20px;
+            background: var(--gradient-primary);
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            color: var(--accent-color);
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 2rem;
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: #666;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FDF2F8;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .header-desc {
             max-width: 800px;
             margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.95;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
-        /* Skills Section */
+        /* Vibrant Section Titles */
+        h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* Colorful Skills Badges */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
 
         .skill-badge {
             background-color: var(--card-bg);
-            border: 1px solid #ddd;
-            padding: 10px 20px;
-            border-radius: 30px;
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 50px;
             font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--gradient-secondary);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Project Sections */
+        .skill-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Clean, Professional Project Cards */
         .project-section {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 40px;
             margin-bottom: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Adds a subtle colorful line at the top of each project */
+        .project-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .project-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .project-section h3 {
             font-size: 1.8rem;
             margin-top: 0;
+            color: var(--text-main);
         }
 
         .project-description {
-            margin-bottom: 25px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
         }
 
-        /* Photo Grid for Multiple Images */
+        .role-tag {
+            display: inline-block;
+            background: #EFF6FF;
+            color: #2563EB;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Dynamic Photo Grid */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .photo-grid img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid #eee;
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s ease;
+            cursor: pointer;
         }
 
         .photo-grid img:hover {
-            transform: scale(1.03);
-            border-color: var(--accent-color);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-radius: 8px;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 40px 20px;
-            background-color: var(--text-color);
+            padding: 50px 20px;
+            background-color: var(--text-main);
             color: white;
-            margin-top: 50px;
+            margin-top: 60px;
         }
         
         footer a {
-            color: var(--accent-color);
+            color: #38BDF8;
             text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #F472B6;
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
+    <!-- Vibrant Hero Section -->
     <header>
-        <h1>Muhammad Syahmi bin Mohd Noor</h1>
-        <p class="subtitle">3D Environment Artist | Game Developer | Digital Media Designer</p>
-        <p style="max-width: 800px; margin: 20px auto;">
-            Final-year Bachelor of Information Technology (Media Informatics) student (3.78 CGPA). Passionate about game development, digital media design, and interactive multimedia. Capable of leveraging programming languages and creative software to build engaging digital experiences.
+        <h1>Muhammad Syahmi</h1>
+        <p class="subtitle">3D Environment Artist • Game Developer • Digital Media Designer</p>
+        <p class="header-desc">
+            Final-year Bachelor of Information Technology (Media Informatics) student (3.78 CGPA). Passionate about game development, digital media design, and interactive multimedia. I leverage programming languages and creative software to build engaging digital experiences.
         </p>
     </header>
 
     <div class="container">
         
-        <!-- Skills Section -->
-        <h2>Technical Arsenal</h2>
+        <!-- Animated Skills Section -->
+        <h2>My Toolkit</h2>
         <div class="skills-container">
             <div class="skill-badge">C# & Unity</div>
             <div class="skill-badge">Python</div>
             <div class="skill-badge">HTML / CSS / PHP / SQL</div>
             <div class="skill-badge">Blender 3D</div>
-            <div class="skill-badge">Adobe Photoshop & Illustrator</div>
+            <div class="skill-badge">Adobe Photoshop</div>
+            <div class="skill-badge">Adobe Illustrator</div>
             <div class="skill-badge">CapCut & Canva</div>
         </div>
 
-        <h2>Selected Projects</h2>
+        <h2>Featured Work</h2>
 
         <!-- Project 1: Kampung Carpenter's Shed -->
         <div class="project-section">
             <h3>Kampung Carpenter's Shed</h3>
+            <span class="role-tag">3D Environment Artist</span>
             <div class="project-description">
-                <strong>Role:</strong> 3D Environment Artist<br>
-                <strong>Description:</strong> Modeled and textured a highly detailed 3D diorama. Utilized mirror modifiers, screw modifiers, and asset instancing to optimize workflow. Applied realistic texturing, lighting, and environmental storytelling to create a compelling "work-in-progress" narrative.
+                Modeled and textured a highly detailed 3D diorama. Utilized mirror modifiers, screw modifiers, and asset instancing to optimize workflow. Applied realistic texturing, lighting, and environmental storytelling to create a compelling "work-in-progress" narrative.
             </div>
-            <!-- Add as many images as you want in this grid -->
             <div class="photo-grid">
                 <img src="shed_render_1.jpg" alt="Diorama overview">
                 <img src="shed_texture_detail.jpg" alt="Texturing details">
@@ -172,11 +245,10 @@
         <!-- Project 2: C.U.R.E. -->
         <div class="project-section">
             <h3>C.U.R.E. (2D Action RPG)</h3>
+            <span class="role-tag">Lead Developer</span>
             <div class="project-description">
-                <strong>Role:</strong> Lead Developer<br>
-                <strong>Description:</strong> Designed and developed core game mechanics for a 2D action RPG. Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.
+                Designed and developed core game mechanics for a 2D action RPG. Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.
             </div>
-            <!-- Add as many images as you want in this grid -->
             <div class="photo-grid">
                 <img src="cure_gameplay_1.jpg" alt="CURE Gameplay screen">
                 <img src="cure_character.jpg" alt="Character Sprite Design">
@@ -187,11 +259,10 @@
         <!-- Project 3: SchizoMind VR -->
         <div class="project-section">
             <h3>SchizoMind VR</h3>
+            <span class="role-tag">Lead Developer & Designer</span>
             <div class="project-description">
-                <strong>Role:</strong> Lead Developer & Designer<br>
-                <strong>Description:</strong> Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics. Designed the UI, interactive environments, and a gamified symptom-check questionnaire to measure user understanding.
+                Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics. Designed the UI, interactive environments, and a gamified symptom-check questionnaire to measure user understanding.
             </div>
-            <!-- Add as many images as you want in this grid -->
             <div class="photo-grid">
                 <img src="vr_headset_view.jpg" alt="VR First Person View">
                 <img src="vr_ui_design.jpg" alt="User Interface Design">
@@ -202,10 +273,10 @@
         <!-- Photography & Certifications -->
         <div class="project-section">
             <h3>Commercial Photography</h3>
+            <span class="role-tag">Certified Photographer</span>
             <div class="project-description">
                 <strong>Certifications:</strong> EduFlexS UniSZA - Fundamental of Commercial Photography & Camera, Composition & Lens Selection (Dec 2025).
             </div>
-            <!-- Add your photography portfolio shots here -->
             <div class="photo-grid">
                 <img src="photo_1.jpg" alt="Commercial Photo 1">
                 <img src="photo_2.jpg" alt="Commercial Photo 2">
@@ -215,10 +286,10 @@
 
     </div>
 
-    <!-- Footer -->
+    <!-- Clean Footer -->
     <footer>
-        <p>Contact: muhammadsyahminoor@gmail.com | +60136581416</p>
-        <p><a href="https://www.linkedin.com/in/muhd-syahmi-noor" target="_blank">Connect on LinkedIn</a></p>
+        <p>muhammadsyahminoor@gmail.com • +60136581416</p>
+        <p><a href="https://www.linkedin.com/in/muhd-syahmi-noor" target="_blank">Let's Connect on LinkedIn</a></p>
     </footer>
 
 </body>
