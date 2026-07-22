@@ -12,7 +12,8 @@
             --card-bg: #FFFFFF;
             --text-main: #0F172A; 
             --text-muted: #475569;
-            --gradient-primary: linear-gradient(-45deg, #4F46E5, #EC4899, #F59E0B, #3B82F6); 
+            /* Cool, tech-focused gradient (No brown/amber) */
+            --gradient-primary: linear-gradient(135deg, #2563EB, #6366F1, #8B5CF6); 
             --gradient-secondary: linear-gradient(135deg, #3B82F6, #8B5CF6);
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
@@ -29,15 +30,9 @@
         }
 
         /* Animations */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
             100% { transform: translateY(0px); }
         }
 
@@ -52,60 +47,69 @@
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
         .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        .delay-5 { animation-delay: 1.0s; }
 
-        /* Animated Header with Profile Picture */
+        /* Two-Column Animated Header */
         header {
-            text-align: center;
-            padding: 80px 20px 100px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 5% 100px 5%;
             background: var(--gradient-primary);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
             color: white;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            margin-bottom: 40px;
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+            margin-bottom: 50px;
+            flex-wrap: wrap;
         }
 
-        .profile-container {
-            margin-bottom: 20px;
-        }
-
-        .profile-pic {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid white;
-            object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: float 4s ease-in-out infinite;
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+            max-width: 650px;
+            padding-right: 40px;
         }
 
         header h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin: 0 0 10px 0;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            line-height: 1.2;
         }
 
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            color: #FDF2F8;
+            color: #E0E7FF;
             margin-bottom: 20px;
             letter-spacing: 1px;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
         }
 
         .header-desc {
-            max-width: 800px;
-            margin: 0 auto;
             font-size: 1.1rem;
             opacity: 0.95;
+            margin-bottom: 0;
+        }
+
+        /* Big, background-free floating image on the right */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+            margin-top: 20px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            max-width: 450px;
+            /* Drop shadow contours the actual person instead of a square box */
+            filter: drop-shadow(0 25px 25px rgba(0,0,0,0.4)); 
+            animation: float 4s ease-in-out infinite;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -127,7 +131,7 @@
             flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
-            margin-bottom: 70px;
+            margin-bottom: 80px;
         }
 
         .skill-badge {
@@ -150,16 +154,24 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Clean, Professional Project Cards */
+        /* Multi-Column Project Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
         .project-section {
             background-color: var(--card-bg);
             border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 50px;
+            padding: 30px;
             box-shadow: var(--shadow-sm);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-section::before {
@@ -168,27 +180,27 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 6px;
+            height: 5px;
             background: var(--gradient-primary);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
         }
 
         .project-section:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
         }
 
         .project-section h3 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-top: 0;
             color: var(--text-main);
+            margin-bottom: 10px;
         }
 
         .project-description {
             color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 1.05rem;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            flex-grow: 1; /* Pushes the photo grid to the bottom evenly */
         }
 
         .role-tag {
@@ -197,33 +209,39 @@
             color: #2563EB;
             padding: 5px 12px;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 15px;
+            align-self: flex-start;
         }
 
-        /* Dynamic Photo Grid */
+        /* Smaller Internal Photo Grid for Side-by-Side Cards */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
 
         .photo-grid img {
             width: 100%;
-            height: 220px;
+            height: 140px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: var(--shadow-sm);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .photo-grid img:hover {
-            transform: scale(1.03) translateY(-5px);
+            transform: scale(1.05);
             box-shadow: var(--shadow-lg);
-            border-radius: 8px;
             z-index: 10;
+        }
+
+        /* Make images span full width if there's an odd number of photos to look neat */
+        .photo-grid img:nth-child(3):last-child {
+            grid-column: span 2;
+            height: 180px;
         }
 
         /* Footer */
@@ -236,130 +254,147 @@
         }
         
         footer a {
-            color: #38BDF8;
+            color: #60A5FA;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
 
         footer a:hover {
-            color: #F472B6;
+            color: #A78BFA;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            header {
+                text-align: center;
+            }
+            .hero-content {
+                padding-right: 0;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr; /* Stacks on small phones */
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Vibrant Animated Hero Section -->
+    <!-- Two-Column Animated Hero Section -->
     <header>
-        <div class="profile-container fade-in">
-            <!-- Ensure your profile picture is named profile.png and uploaded to GitHub -->
-            <img src="profile.png" alt="Muhammad Syahmi" class="profile-pic">
+        <div class="hero-content fade-in">
+            <h1>Muhammad Syahmi</h1>
+            <p class="subtitle">3D Environment Artist • Game Developer • Digital Designer</p>
+            <p class="header-desc">
+                Final-year Bachelor of Information Technology (Media Informatics) student (3.78 CGPA). Passionate about game development, digital media design, and interactive multimedia. I leverage programming languages and creative software to build engaging digital experiences.
+            </p>
         </div>
-        <h1 class="fade-in delay-1">Muhammad Syahmi</h1>
-        <p class="subtitle fade-in delay-1">3D Environment Artist • Game Developer • Digital Media Designer</p>
-        <p class="header-desc fade-in delay-2">
-            Final-year Bachelor of Information Technology (Media Informatics) student (3.78 CGPA). Passionate about game development, digital media design, and interactive multimedia. I leverage programming languages and creative software to build engaging digital experiences.
-        </p>
+        <div class="hero-image fade-in delay-1">
+            <!-- Upload your transparent background photo to GitHub and name it profile-nobg.png -->
+            <img src="profile-nobg.png" alt="Muhammad Syahmi" class="profile-pic">
+        </div>
     </header>
 
     <div class="container">
         
         <!-- Animated Skills Section -->
-        <h2 class="fade-in delay-2">My Toolkit</h2>
-        <div class="skills-container fade-in delay-3">
+        <h2 class="fade-in delay-1">My Toolkit</h2>
+        <div class="skills-container fade-in delay-2">
             <div class="skill-badge">C# & Unity</div>
             <div class="skill-badge">Python</div>
             <div class="skill-badge">HTML / CSS / PHP / SQL</div>
             <div class="skill-badge">Blender 3D</div>
-            <div class="skill-badge">Adobe Photoshop</div>
-            <div class="skill-badge">Adobe Illustrator</div>
+            <div class="skill-badge">Adobe Photoshop & Illustrator</div>
             <div class="skill-badge">CapCut & Canva</div>
         </div>
 
-        <h2 class="fade-in delay-3">Featured Work</h2>
+        <h2 class="fade-in delay-2">Featured Work</h2>
 
-        <!-- Project 1: Kampung Carpenter's Shed -->
-        <div class="project-section fade-in delay-4">
-            <h3>Kampung Carpenter's Shed</h3>
-            <span class="role-tag">3D Environment Artist</span>
-            <div class="project-description">
-                Modeled and textured a highly detailed 3D diorama. Utilized mirror modifiers, screw modifiers, and asset instancing to optimize workflow. Applied realistic texturing, lighting, and environmental storytelling to create a compelling "work-in-progress" narrative.
-            </div>
-            <div class="photo-grid">
-                <img src="shed_render_1.jpg" alt="Diorama overview">
-                <img src="shed_texture_detail.jpg" alt="Texturing details">
-                <img src="shed_lighting.jpg" alt="Lighting setup">
-            </div>
-        </div>
+        <!-- Projects Grid Layout (Side by Side) -->
+        <div class="projects-grid fade-in delay-3">
 
-        <!-- Project 2: C.U.R.E. -->
-        <div class="project-section fade-in delay-5">
-            <h3>C.U.R.E. (2D Action RPG)</h3>
-            <span class="role-tag">Lead Developer</span>
-            <div class="project-description">
-                Designed and developed core game mechanics for a 2D action RPG. Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.
+            <!-- Project 1: Kampung Carpenter's Shed -->
+            <div class="project-section">
+                <h3>Kampung Carpenter's Shed</h3>
+                <span class="role-tag">3D Environment Artist</span>
+                <div class="project-description">
+                    Modeled and textured a highly detailed 3D diorama. Utilized mirror modifiers, screw modifiers, and asset instancing. Applied realistic texturing, lighting, and environmental storytelling.
+                </div>
+                <div class="photo-grid">
+                    <img src="shed_render_1.jpg" alt="Diorama overview">
+                    <img src="shed_texture_detail.jpg" alt="Texturing details">
+                    <img src="shed_lighting.jpg" alt="Lighting setup">
+                </div>
             </div>
-            <div class="photo-grid">
-                <img src="cure_gameplay_1.jpg" alt="CURE Gameplay screen">
-                <img src="cure_character.jpg" alt="Character Sprite Design">
-                <img src="cure_level.jpg" alt="Level Design">
-            </div>
-        </div>
 
-        <!-- Project 3: SchizoMind VR -->
-        <div class="project-section fade-in delay-5">
-            <h3>SchizoMind VR</h3>
-            <span class="role-tag">Lead Developer & Designer</span>
-            <div class="project-description">
-                Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics. Designed the UI, interactive environments, and a gamified symptom-check questionnaire to measure user understanding.
+            <!-- Project 2: C.U.R.E. -->
+            <div class="project-section">
+                <h3>C.U.R.E. (2D Action RPG)</h3>
+                <span class="role-tag">Lead Developer</span>
+                <div class="project-description">
+                    Designed and developed core game mechanics for a 2D action RPG. Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.
+                </div>
+                <div class="photo-grid">
+                    <img src="cure_gameplay_1.jpg" alt="CURE Gameplay screen">
+                    <img src="cure_character.jpg" alt="Character Sprite Design">
+                    <img src="cure_level.jpg" alt="Level Design">
+                </div>
             </div>
-            <div class="photo-grid">
-                <img src="vr_headset_view.jpg" alt="VR First Person View">
-                <img src="vr_ui_design.jpg" alt="User Interface Design">
-                <img src="vr_environment.jpg" alt="Virtual Environment">
-            </div>
-        </div>
 
-        <!-- Project 4: KIAS Flashcards -->
-        <div class="project-section fade-in delay-5">
-            <h3>KIAS (Digital Flashcards)</h3>
-            <span class="role-tag">Digital Media Designer</span>
-            <div class="project-description">
-                Developed a digital educational flashcard project focused on Malay proverbs. Designed specifically to assist teachers, parents, and students through engaging visual communication and interactive learning evaluation. 
+            <!-- Project 3: SchizoMind VR -->
+            <div class="project-section">
+                <h3>SchizoMind VR</h3>
+                <span class="role-tag">Lead Developer & Designer</span>
+                <div class="project-description">
+                    Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics. Designed the UI and an interactive gamified symptom-check.
+                </div>
+                <div class="photo-grid">
+                    <img src="vr_headset_view.jpg" alt="VR First Person View">
+                    <img src="vr_ui_design.jpg" alt="User Interface Design">
+                    <img src="vr_environment.jpg" alt="Virtual Environment">
+                </div>
             </div>
-            <div class="photo-grid">
-                <img src="kias_design_1.jpg" alt="KIAS Flashcard Design">
-                <img src="kias_design_2.jpg" alt="KIAS UI Application">
-                <img src="kias_design_3.jpg" alt="KIAS Educational Assets">
-            </div>
-        </div>
 
-        <!-- Project 5: Pink Corner Campaign -->
-        <div class="project-section fade-in delay-5">
-            <h3>Pink Corner Marketing Campaign</h3>
-            <span class="role-tag">Digital Marketer & Designer</span>
-            <div class="project-description">
-                Executed a digital marketing and visibility campaign for a local food establishment. Designed branding assets, tracked campaign completion metrics, and assisted the business owner with setting up digital delivery platforms and Google Maps integration.
+            <!-- Project 4: KIAS Flashcards -->
+            <div class="project-section">
+                <h3>KIAS (Digital Flashcards)</h3>
+                <span class="role-tag">Digital Media Designer</span>
+                <div class="project-description">
+                    Developed a digital educational flashcard project focused on Malay proverbs. Designed specifically to assist teachers, parents, and students through engaging visual communication. 
+                </div>
+                <div class="photo-grid">
+                    <img src="kias_design_1.jpg" alt="KIAS Flashcard Design">
+                    <img src="kias_design_2.jpg" alt="KIAS UI Application">
+                </div>
             </div>
-            <div class="photo-grid">
-                <img src="pinkcorner_ad.jpg" alt="Digital Marketing Assets">
-                <img src="pinkcorner_branding.jpg" alt="Brand Identity">
-                <img src="pinkcorner_social.jpg" alt="Social Media Campaign">
-            </div>
-        </div>
 
-        <!-- Photography & Certifications -->
-        <div class="project-section fade-in delay-5">
-            <h3>Commercial Photography</h3>
-            <span class="role-tag">Certified Photographer</span>
-            <div class="project-description">
-                <strong>Certifications:</strong> EduFlexS UniSZA - Fundamental of Commercial Photography & Camera, Composition & Lens Selection (Dec 2025).
+            <!-- Project 5: Pink Corner Campaign -->
+            <div class="project-section">
+                <h3>Pink Corner Marketing</h3>
+                <span class="role-tag">Digital Marketer & Designer</span>
+                <div class="project-description">
+                    Executed a digital marketing and visibility campaign. Designed branding assets, tracked completion metrics, and assisted the business owner with setting up digital delivery platforms.
+                </div>
+                <div class="photo-grid">
+                    <img src="pinkcorner_ad.jpg" alt="Digital Marketing Assets">
+                    <img src="pinkcorner_branding.jpg" alt="Brand Identity">
+                </div>
             </div>
-            <div class="photo-grid">
-                <img src="photo_1.jpg" alt="Commercial Photo 1">
-                <img src="photo_2.jpg" alt="Commercial Photo 2">
-                <img src="photo_3.jpg" alt="Commercial Photo 3">
+
+            <!-- Photography & Certifications -->
+            <div class="project-section">
+                <h3>Commercial Photography</h3>
+                <span class="role-tag">Certified Photographer</span>
+                <div class="project-description">
+                    <strong>Certifications:</strong> EduFlexS UniSZA - Fundamental of Commercial Photography & Camera, Composition & Lens Selection (Dec 2025).
+                </div>
+                <div class="photo-grid">
+                    <img src="photo_1.jpg" alt="Commercial Photo 1">
+                    <img src="photo_2.jpg" alt="Commercial Photo 2">
+                    <img src="photo_3.jpg" alt="Commercial Photo 3">
+                </div>
             </div>
+
         </div>
 
     </div>
