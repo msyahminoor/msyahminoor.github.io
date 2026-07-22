@@ -8,14 +8,14 @@
     <style>
         /* Vibrant & Professional Color Palette */
         :root {
-            --bg-color: #F8FAFC; /* Light, airy background */
+            --bg-color: #F8FAFC; 
             --card-bg: #FFFFFF;
-            --text-main: #0F172A; /* Deep slate for readability */
+            --text-main: #0F172A; 
             --text-muted: #475569;
-            --gradient-primary: linear-gradient(135deg, #4F46E5, #EC4899, #F59E0B); /* Indigo to Pink to Amber */
+            --gradient-primary: linear-gradient(-45deg, #4F46E5, #EC4899, #F59E0B, #3B82F6); 
             --gradient-secondary: linear-gradient(135deg, #3B82F6, #8B5CF6);
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         body {
@@ -25,20 +25,64 @@
             margin: 0;
             padding: 0;
             line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* Fun & Energetic Header */
+        /* Animations */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease backwards;
+        }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1.0s; }
+
+        /* Animated Header with Profile Picture */
         header {
             text-align: center;
-            padding: 100px 20px;
+            padding: 80px 20px 100px 20px;
             background: var(--gradient-primary);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: white;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             margin-bottom: 40px;
         }
 
+        .profile-container {
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: float 4s ease-in-out infinite;
+        }
+
         header h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 700;
             margin: 0 0 10px 0;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
@@ -50,6 +94,7 @@
             color: #FDF2F8;
             margin-bottom: 20px;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
         }
 
         .header-desc {
@@ -101,7 +146,7 @@
         }
 
         .skill-badge:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: var(--shadow-lg);
         }
 
@@ -112,24 +157,25 @@
             padding: 40px;
             margin-bottom: 50px;
             box-shadow: var(--shadow-sm);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
         }
 
-        /* Adds a subtle colorful line at the top of each project */
         .project-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 6px;
             background: var(--gradient-primary);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
         }
 
         .project-section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
 
@@ -174,9 +220,10 @@
         }
 
         .photo-grid img:hover {
-            transform: scale(1.05);
+            transform: scale(1.03) translateY(-5px);
             box-shadow: var(--shadow-lg);
             border-radius: 8px;
+            z-index: 10;
         }
 
         /* Footer */
@@ -202,11 +249,15 @@
 </head>
 <body>
 
-    <!-- Vibrant Hero Section -->
+    <!-- Vibrant Animated Hero Section -->
     <header>
-        <h1>Muhammad Syahmi</h1>
-        <p class="subtitle">3D Environment Artist • Game Developer • Digital Media Designer</p>
-        <p class="header-desc">
+        <div class="profile-container fade-in">
+            <!-- Ensure your profile picture is named profile.png and uploaded to GitHub -->
+            <img src="profile.png" alt="Muhammad Syahmi" class="profile-pic">
+        </div>
+        <h1 class="fade-in delay-1">Muhammad Syahmi</h1>
+        <p class="subtitle fade-in delay-1">3D Environment Artist • Game Developer • Digital Media Designer</p>
+        <p class="header-desc fade-in delay-2">
             Final-year Bachelor of Information Technology (Media Informatics) student (3.78 CGPA). Passionate about game development, digital media design, and interactive multimedia. I leverage programming languages and creative software to build engaging digital experiences.
         </p>
     </header>
@@ -214,8 +265,8 @@
     <div class="container">
         
         <!-- Animated Skills Section -->
-        <h2>My Toolkit</h2>
-        <div class="skills-container">
+        <h2 class="fade-in delay-2">My Toolkit</h2>
+        <div class="skills-container fade-in delay-3">
             <div class="skill-badge">C# & Unity</div>
             <div class="skill-badge">Python</div>
             <div class="skill-badge">HTML / CSS / PHP / SQL</div>
@@ -225,10 +276,10 @@
             <div class="skill-badge">CapCut & Canva</div>
         </div>
 
-        <h2>Featured Work</h2>
+        <h2 class="fade-in delay-3">Featured Work</h2>
 
         <!-- Project 1: Kampung Carpenter's Shed -->
-        <div class="project-section">
+        <div class="project-section fade-in delay-4">
             <h3>Kampung Carpenter's Shed</h3>
             <span class="role-tag">3D Environment Artist</span>
             <div class="project-description">
@@ -238,12 +289,11 @@
                 <img src="shed_render_1.jpg" alt="Diorama overview">
                 <img src="shed_texture_detail.jpg" alt="Texturing details">
                 <img src="shed_lighting.jpg" alt="Lighting setup">
-                <img src="shed_wireframe.jpg" alt="3D Wireframe view">
             </div>
         </div>
 
         <!-- Project 2: C.U.R.E. -->
-        <div class="project-section">
+        <div class="project-section fade-in delay-5">
             <h3>C.U.R.E. (2D Action RPG)</h3>
             <span class="role-tag">Lead Developer</span>
             <div class="project-description">
@@ -257,7 +307,7 @@
         </div>
 
         <!-- Project 3: SchizoMind VR -->
-        <div class="project-section">
+        <div class="project-section fade-in delay-5">
             <h3>SchizoMind VR</h3>
             <span class="role-tag">Lead Developer & Designer</span>
             <div class="project-description">
@@ -270,8 +320,36 @@
             </div>
         </div>
 
+        <!-- Project 4: KIAS Flashcards -->
+        <div class="project-section fade-in delay-5">
+            <h3>KIAS (Digital Flashcards)</h3>
+            <span class="role-tag">Digital Media Designer</span>
+            <div class="project-description">
+                Developed a digital educational flashcard project focused on Malay proverbs. Designed specifically to assist teachers, parents, and students through engaging visual communication and interactive learning evaluation. 
+            </div>
+            <div class="photo-grid">
+                <img src="kias_design_1.jpg" alt="KIAS Flashcard Design">
+                <img src="kias_design_2.jpg" alt="KIAS UI Application">
+                <img src="kias_design_3.jpg" alt="KIAS Educational Assets">
+            </div>
+        </div>
+
+        <!-- Project 5: Pink Corner Campaign -->
+        <div class="project-section fade-in delay-5">
+            <h3>Pink Corner Marketing Campaign</h3>
+            <span class="role-tag">Digital Marketer & Designer</span>
+            <div class="project-description">
+                Executed a digital marketing and visibility campaign for a local food establishment. Designed branding assets, tracked campaign completion metrics, and assisted the business owner with setting up digital delivery platforms and Google Maps integration.
+            </div>
+            <div class="photo-grid">
+                <img src="pinkcorner_ad.jpg" alt="Digital Marketing Assets">
+                <img src="pinkcorner_branding.jpg" alt="Brand Identity">
+                <img src="pinkcorner_social.jpg" alt="Social Media Campaign">
+            </div>
+        </div>
+
         <!-- Photography & Certifications -->
-        <div class="project-section">
+        <div class="project-section fade-in delay-5">
             <h3>Commercial Photography</h3>
             <span class="role-tag">Certified Photographer</span>
             <div class="project-description">
