@@ -1,469 +1,664 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Syahmi | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Vibrant & Professional Color Palette */
-        :root {
-            --bg-color: #F8FAFC; 
-            --card-bg: #FFFFFF;
-            --text-main: #0F172A; 
-            --text-muted: #475569;
-            /* Soft, colorful shifting gradient */
-            --gradient-primary: linear-gradient(-45deg, #4F46E5, #EC4899, #F59E0B, #3B82F6); 
-            --gradient-secondary: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Syahmi — Game &amp; Media Portfolio</title>
+<meta name="description" content="Portfolio of Muhammad Syahmi Bin Mohd Noor — Media Informatics student, game and VR developer, 3D artist.">
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        /* Animations */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+<style>
+  :root{
+    --bg:#12141c;
+    --bg-panel:#191c26;
+    --bg-panel-alt:#1e2230;
+    --border:#2a2f3d;
+    --border-soft:#20242f;
+    --text:#eceef3;
+    --text-dim:#98a0b3;
+    --text-faint:#656c80;
+    --accent:#e8a33d;
+    --accent-soft:rgba(232,163,61,0.14);
+    --tag-vr:#6ec8c0;
+    --tag-vr-soft:rgba(110,200,192,0.14);
+    --tag-rpg:#e8a33d;
+    --tag-rpg-soft:rgba(232,163,61,0.14);
+    --tag-3d:#d9836b;
+    --tag-3d-soft:rgba(217,131,107,0.14);
+    --radius:16px;
+    --font-display:'Sora', sans-serif;
+    --font-body:'Inter', sans-serif;
+  }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 550px at 88% -10%, rgba(232,163,61,0.09), transparent 60%),
+      radial-gradient(900px 500px at -10% 40%, rgba(110,200,192,0.05), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
 
-        .fade-in {
-            animation: fadeInUp 0.8s ease backwards;
-        }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; }
 
-        /* Two-Column Animated Header */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 80px 5% 100px 5%;
-            background: var(--gradient-primary);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            color: white;
-            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:4px;
+  }
 
-        .hero-content {
-            flex: 1;
-            min-width: 300px;
-            max-width: 650px;
-            padding-right: 40px;
-        }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
 
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            line-height: 1.2;
-        }
+  .eyebrow{
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 0 14px;
+  }
+  .eyebrow::before{ content:""; width:20px; height:2px; background:var(--accent); display:inline-block; border-radius:2px; }
 
-        .subtitle {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #E0E7FF;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-        }
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,20,28,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+  }
+  .nav-brand{
+    font-family:var(--font-display);
+    font-size:17px; font-weight:700;
+    text-decoration:none; color:var(--text); white-space:nowrap;
+  }
+  .nav-brand span{ color:var(--accent); }
+  .nav-links{ display:flex; align-items:center; gap:26px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; font-size:14px; color:var(--text-dim); transition:color .15s ease; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-cta{
+    font-size:13.5px; color:#171208 !important; background:var(--accent);
+    padding:9px 16px; border-radius:999px; text-decoration:none; font-weight:700; white-space:nowrap;
+  }
+  @media (max-width:880px){ .nav-links{ display:none; } }
 
-        .header-desc {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 0;
-        }
+  /* HERO */
+  .hero{ padding:88px 0 72px; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.35fr 0.85fr; gap:56px; align-items:center;
+  }
+  .hero h1{
+    font-family:var(--font-display); font-size:clamp(34px, 4.4vw, 52px);
+    font-weight:700; line-height:1.14; margin:0 0 20px; letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{ color:var(--accent); }
+  .hero p.lede{ font-size:16.5px; color:var(--text-dim); max-width:52ch; margin:0 0 30px; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; }
+  .btn{
+    font-size:14px; text-decoration:none; padding:12px 20px; border-radius:999px;
+    border:1px solid var(--border); color:var(--text); font-weight:600;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .btn:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .btn.primary{ background:var(--accent); color:#171208; border-color:var(--accent); }
+  .btn.primary:hover{ background:#f2b451; }
 
-        /* Big, background-free floating image on the right */
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            min-width: 300px;
-            margin-top: 20px;
-        }
+  .hero-photo-col{ display:flex; justify-content:center; }
+  .hero-photo{ position:relative; width:100%; max-width:230px; }
+  .hero-photo .frame{
+    aspect-ratio:1/1.08; border-radius:20px; border:1px solid var(--border);
+    background:var(--bg-panel); overflow:hidden; position:relative;
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; }
+  .hero-photo .frame::after{
+    content:""; position:absolute; inset:0;
+    box-shadow:inset 0 0 0 1px rgba(232,163,61,0.22); border-radius:20px; pointer-events:none;
+  }
 
-        .profile-pic {
-            width: 100%;
-            max-width: 450px;
-            filter: drop-shadow(0 25px 25px rgba(0,0,0,0.4)); 
-            animation: float 4s ease-in-out infinite;
-        }
+  .img-placeholder{
+    width:100%; height:100%; min-height:160px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; color:var(--text-faint);
+    border:1px dashed var(--border);
+    background:var(--bg-panel-alt);
+    text-align:center; padding:16px;
+  }
+  .img-placeholder span{
+    font-size:22px; width:34px; height:34px; border-radius:50%;
+    border:1px dashed var(--text-faint); display:flex; align-items:center; justify-content:center;
+  }
+  .img-placeholder p{ font-size:12px; margin:0; }
 
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+  /* SECTION SHELL */
+  section{ padding:64px 0; border-top:1px solid var(--border-soft); }
+  .section-head{ margin-bottom:34px; }
+  .section-head h2{ font-family:var(--font-display); font-size:clamp(24px, 3vw, 30px); margin:0; letter-spacing:-0.01em; }
+  .section-head p.sub{ color:var(--text-dim); margin:10px 0 0; max-width:56ch; font-size:15px; }
 
-        /* Vibrant Section Titles */
-        h2 {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 40px;
-            background: var(--gradient-secondary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
+  /* TOOLKIT */
+  .stack-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
+  .stack-card{ background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius); padding:22px; }
+  .stack-card h3{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin:0 0 16px; font-weight:700; }
+  .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{ font-size:13.5px; padding:7px 12px; border-radius:999px; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); }
+  @media (max-width:880px){ .stack-grid{ grid-template-columns:1fr; } }
 
-        /* Colorful Skills Badges */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 80px;
-        }
+  /* PROJECTS */
+  .project{
+    background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius);
+    overflow:hidden; margin-bottom:28px;
+    display:grid; grid-template-columns:340px 1fr;
+    align-items:stretch;
+    transition:box-shadow .18s ease;
+  }
+  .project:hover{ box-shadow:0 16px 36px -20px rgba(0,0,0,0.6); }
+  .project-media{ position:relative; padding:18px; display:flex; align-items:center; }
+  .project-body{ padding:26px 28px; display:flex; flex-direction:column; }
+  .project-tag{
+    align-self:flex-start; font-size:11.5px; padding:6px 12px; border-radius:999px;
+    color:var(--proj-color, var(--accent)); background:var(--proj-color-soft, var(--accent-soft));
+    font-weight:700; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:14px;
+  }
+  .project-title{ font-family:var(--font-display); font-size:23px; font-weight:700; margin:0 0 4px; }
+  .project-role{ font-size:13.5px; color:var(--text-dim); margin:0 0 14px; }
+  .project p.desc{ margin:0 0 18px; font-size:15.5px; color:var(--text); }
+  .project .pill-row{ margin-top:auto; }
+  .project .pill-row .pill{ font-size:12.5px; padding:5px 11px; }
+  @media (max-width:780px){
+    .project{ grid-template-columns:1fr; }
+    .project-media{ padding:18px 18px 0; justify-content:center; }
+    .carousel{ max-width:340px; margin:0 auto; }
+  }
 
-        .skill-badge {
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: var(--shadow-sm);
-            border: 2px solid transparent;
-            background-image: linear-gradient(var(--card-bg), var(--card-bg)), var(--gradient-secondary);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+  /* CAROUSEL */
+  .carousel{
+    position:relative; aspect-ratio:4/3; background:var(--bg-panel-alt);
+    overflow:hidden; outline-offset:-3px; border-radius:12px;
+    width:100%; border:1px solid var(--border-soft);
+  }
+  .carousel-track{ display:flex; height:100%; touch-action:pan-y; cursor:grab; }
+  .carousel-track:active{ cursor:grabbing; }
+  .carousel-slide{ flex:0 0 100%; height:100%; }
+  .carousel-slide img{ width:100%; height:100%; object-fit:cover; user-select:none; -webkit-user-drag:none; transition:transform .5s ease; }
+  .carousel:hover .carousel-slide img{ transform:scale(1.04); }
+  .carousel-progress{
+    position:absolute; top:0; left:0; height:3px; width:0%;
+    background:var(--accent); z-index:2; opacity:0.9;
+  }
+  .carousel-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:36px; height:36px; border-radius:50%; border:none;
+    background:rgba(18,20,28,0.55); backdrop-filter:blur(4px);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; opacity:0; transition:opacity .15s ease, background .15s ease;
+  }
+  .carousel:hover .carousel-btn, .carousel:focus-within .carousel-btn{ opacity:1; }
+  .carousel-btn:hover{ background:rgba(18,20,28,0.8); }
+  .carousel-btn.prev{ left:10px; }
+  .carousel-btn.next{ right:10px; }
+  .carousel-dots{
+    position:absolute; bottom:12px; left:0; right:0;
+    display:flex; justify-content:center; gap:7px;
+  }
+  .carousel-dot{
+    width:7px; height:7px; border-radius:50%; border:none; padding:0;
+    background:rgba(255,255,255,0.35); cursor:pointer; transition:background .15s ease, transform .15s ease;
+  }
+  .carousel-dot.active{ background:var(--accent); transform:scale(1.25); }
+  @media (max-width:780px){ .carousel-btn{ opacity:1; } }
 
-        .skill-badge:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: var(--shadow-lg);
-        }
+  /* BACKGROUND (experience / education) */
+  .bg-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .bg-block h3{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin:0 0 18px; font-weight:700; }
+  .entry{ margin-bottom:20px; padding-left:16px; border-left:1px solid var(--border); }
+  .entry:last-child{ margin-bottom:0; }
+  .entry .role{ font-weight:700; font-size:15px; margin:0 0 2px; }
+  .entry .org{ font-size:13.5px; color:var(--text-dim); margin:0 0 2px; }
+  .entry .when{ font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; margin:0 0 8px; }
+  .entry p.note{ font-size:14px; color:var(--text-dim); margin:0; }
 
-        /* Multi-Column Project Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
+  .strip{ margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .badge-list{ list-style:none; margin:0; padding:0; }
+  .badge-list li{ font-size:14px; color:var(--text-dim); padding:10px 0; border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; gap:12px; }
+  .badge-list li:last-child{ border-bottom:none; }
+  .badge-list li span.date{ font-size:12px; color:var(--text-faint); white-space:nowrap; text-transform:uppercase; letter-spacing:0.04em; }
 
-        .project-section {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+  /* CONTACT / FOOTER */
+  footer{ padding:70px 0 50px; border-top:1px solid var(--border-soft); text-align:center; }
+  footer .eyebrow{ justify-content:center; }
+  footer .eyebrow::before{ display:none; }
+  footer h2{ font-family:var(--font-display); font-size:clamp(26px, 4vw, 38px); margin:0 0 16px; }
+  footer p{ color:var(--text-dim); max-width:48ch; margin:0 auto 30px; }
+  .contact-actions{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:40px; }
+  .foot-meta{ font-size:12px; color:var(--text-faint); }
 
-        .project-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient-secondary);
-        }
+  .hero-anim{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .hero-anim.in{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .hero-anim{ opacity:1; transform:none; transition:none; } }
 
-        .project-section:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
 
-        .project-section h3 {
-            font-size: 1.5rem;
-            margin-top: 0;
-            color: var(--text-main);
-            margin-bottom: 10px;
-        }
-
-        .project-description {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            flex-grow: 1; 
-        }
-
-        .role-tag {
-            display: inline-block;
-            background: #EFF6FF;
-            color: #2563EB;
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            align-self: flex-start;
-        }
-
-        /* Smaller Internal Photo Grid for Side-by-Side Cards */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .photo-grid img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .photo-grid img:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
-            z-index: 10;
-        }
-
-        .photo-grid img:nth-child(3):last-child {
-            grid-column: span 2;
-            height: 180px;
-        }
-
-        /* Internship Banner */
-        .internship-banner {
-            background: var(--gradient-primary);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-            color: white;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 60px;
-        }
-
-        .internship-banner h2 {
-            background: none;
-            -webkit-text-fill-color: white;
-            margin-bottom: 15px;
-        }
-
-        .internship-banner p {
-            font-size: 1.1rem;
-            max-width: 800px;
-            margin: 0 auto;
-            font-weight: 600;
-        }
-
-        /* Footer & Contact Info */
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: var(--text-main);
-            color: white;
-            border-top: 5px solid #3B82F6;
-        }
-
-        .contact-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-        }
-        
-        footer a {
-            color: #60A5FA;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: #A78BFA;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            header {
-                text-align: center;
-            }
-            .hero-content {
-                padding-right: 0;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  @media (max-width:880px){
+    .hero-grid{ grid-template-columns:1fr; padding-top:20px; }
+    .hero-photo-col{ order:-1; }
+    .hero-photo{ max-width:180px; margin:0 auto 8px; }
+    .bg-grid, .strip{ grid-template-columns:1fr; gap:32px; }
+  }
+  @media (max-width:480px){
+    .wrap, .nav-inner{ padding-left:20px; padding-right:20px; }
+    .hero{ padding-top:36px; padding-bottom:52px; }
+    .project-body{ padding:22px 20px; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- Two-Column Animated Hero Section -->
-    <header>
-        <div class="hero-content fade-in">
-            <h1>Muhammad Syahmi</h1>
-            <p class="subtitle">3D Environment Artist • Game Developer • Digital Designer</p>
-            <p class="header-desc">
-                Final-year Bachelor of Information Technology (Media Informatics) student (3.78 CGPA). Passionate about game development, digital media design, and interactive multimedia. I leverage programming languages and creative software to build engaging digital experiences.
-            </p>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">Syahmi<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#toolkit">Toolkit</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#background">Background</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:muhammadsyahminoor@gmail.com">Say hi</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-anim">
+        <p class="eyebrow">Final-year · Media Informatics · UniSZA</p>
+        <h1>I create <span class="accent">games, VR experiences,</span> and 3D worlds that pull people in.</h1>
+        <p class="lede">Final-year Bachelor of Information Technology (Media Informatics) student, CGPA 3.78. I love taking apart how a game teaches, tells a story, or reacts to a player — then building my own version of it, whether that's a VR headset experience, a 2D dungeon, or a fully modelled 3D scene.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="mailto:muhammadsyahminoor@gmail.com">Email me</a>
+          <a class="btn" href="https://www.linkedin.com/in/muhd-syahmi-noor" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
         </div>
-        <div class="hero-image fade-in delay-1">
-            <!-- Ensure your profile picture is named profile-nobg.png -->
-            <img src="memyself.png" alt="Muhammad Syahmi" class="profile-pic">
+      </div>
+      <div class="hero-photo-col hero-anim" style="transition-delay:.12s;">
+        <div class="hero-photo">
+          <div class="frame">
+            <!-- Upload your photo to the repo root named profile.jpg -->
+            <img src="profile.jpg" alt="Portrait of Muhammad Syahmi Bin Mohd Noor" data-filename="profile.jpg" onerror="portfolioImgFallback(this)">
+          </div>
         </div>
-    </header>
-
-    <div class="container">
-        
-        <!-- Animated Skills Section -->
-        <h2 class="fade-in delay-1">My Toolkit</h2>
-        <div class="skills-container fade-in delay-2">
-            <div class="skill-badge">C# & Unity</div>
-            <div class="skill-badge">Python</div>
-            <div class="skill-badge">HTML / CSS / PHP / SQL</div>
-            <div class="skill-badge">Blender 3D</div>
-            <div class="skill-badge">Adobe Photoshop & Illustrator</div>
-            <div class="skill-badge">CapCut & Canva</div>
-        </div>
-
-        <h2 class="fade-in delay-2">Featured Work</h2>
-
-        <!-- Projects Grid Layout (Side by Side) -->
-        <div class="projects-grid fade-in delay-3">
-
-            <!-- Project 1: Kampung Carpenter's Shed -->
-            <div class="project-section">
-                <h3>Kampung Carpenter's Shed</h3>
-                <span class="role-tag">3D Environment Artist</span>
-                <div class="project-description">
-                    Modeled and textured a highly detailed 3D diorama. Utilized mirror modifiers, screw modifiers, and asset instancing. Applied realistic texturing, lighting, and environmental storytelling.
-                </div>
-                <div class="photo-grid">
-                    <img src="shed_render_1.jpg" alt="Diorama overview">
-                    <img src="shed_texture_detail.jpg" alt="Texturing details">
-                    <img src="shed_lighting.jpg" alt="Lighting setup">
-                </div>
-            </div>
-
-            <!-- Project 2: C.U.R.E. -->
-            <div class="project-section">
-                <h3>C.U.R.E. (2D Action RPG)</h3>
-                <span class="role-tag">Lead Developer</span>
-                <div class="project-description">
-                    Designed and developed core game mechanics for a 2D action RPG. Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.
-                </div>
-                <div class="photo-grid">
-                    <img src="cure_gameplay_1.jpg" alt="CURE Gameplay screen">
-                    <img src="cure_character.jpg" alt="Character Sprite Design">
-                    <img src="cure_level.jpg" alt="Level Design">
-                </div>
-            </div>
-
-            <!-- Project 3: SchizoMind VR -->
-            <div class="project-section">
-                <h3>SchizoMind VR</h3>
-                <span class="role-tag">Lead Developer & Designer</span>
-                <div class="project-description">
-                    Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics. Designed the UI and an interactive gamified symptom-check.
-                </div>
-                <div class="photo-grid">
-                    <img src="vr_headset_view.jpg" alt="VR First Person View">
-                    <img src="vr_ui_design.jpg" alt="User Interface Design">
-                    <img src="vr_environment.jpg" alt="Virtual Environment">
-                </div>
-            </div>
-
-            <!-- Project 4: KIAS Flashcards -->
-            <div class="project-section">
-                <h3>KIAS (Digital Flashcards)</h3>
-                <span class="role-tag">Digital Media Designer</span>
-                <div class="project-description">
-                    Developed a digital educational flashcard project focused on Malay proverbs. Designed specifically to assist teachers, parents, and students through engaging visual communication. 
-                </div>
-                <div class="photo-grid">
-                    <img src="kias_design_1.jpg" alt="KIAS Flashcard Design">
-                    <img src="kias_design_2.jpg" alt="KIAS UI Application">
-                </div>
-            </div>
-
-            <!-- Project 5: Pink Corner Campaign -->
-            <div class="project-section">
-                <h3>Pink Corner Marketing</h3>
-                <span class="role-tag">Digital Marketer & Designer</span>
-                <div class="project-description">
-                    Executed a digital marketing and visibility campaign. Designed branding assets, tracked completion metrics, and assisted the business owner with setting up digital delivery platforms.
-                </div>
-                <div class="photo-grid">
-                    <img src="pinkcorner_ad.jpg" alt="Digital Marketing Assets">
-                    <img src="pinkcorner_branding.jpg" alt="Brand Identity">
-                </div>
-            </div>
-
-            <!-- Photography & Certifications -->
-            <div class="project-section">
-                <h3>Commercial Photography</h3>
-                <span class="role-tag">Certified Photographer</span>
-                <div class="project-description">
-                    <strong>Certifications:</strong> EduFlexS UniSZA - Fundamental of Commercial Photography & Camera, Composition & Lens Selection (Dec 2025).
-                </div>
-                <div class="photo-grid">
-                    <img src="photo_1.jpg" alt="Commercial Photo 1">
-                    <img src="photo_2.jpg" alt="Commercial Photo 2">
-                    <img src="photo_3.jpg" alt="Commercial Photo 3">
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Internship Opportunity Banner -->
-        <div class="internship-banner fade-in delay-3">
-            <h2>Seeking Internship Opportunities</h2>
-            <p>I am actively looking for a 6-month industrial training placement from <strong>20 September 2026 – 20 March 2027</strong>.</p>
-            <p style="margin-top: 10px; font-weight: 400;">If your team is looking for a dedicated and versatile 3D artist, game developer, or digital media designer, I would love to connect and discuss how I can contribute!</p>
-        </div>
-
+      </div>
     </div>
+  </section>
 
-    <!-- Clean Footer with Full Contact Info -->
-    <footer>
-        <h2>Let's Connect</h2>
-        <div class="contact-container">
-            <div class="contact-item">📧 <a href="mailto:muhammadsyahminoor@gmail.com">muhammadsyahminoor@gmail.com</a></div>
-            <div class="contact-item">📱 +6013-6581416</div>
-            <div class="contact-item">💼 <a href="https://www.linkedin.com/in/muhd-syahmi-noor" target="_blank">LinkedIn Profile</a></div>
-            <div class="contact-item">📍 Kampung Raja, Terengganu, Malaysia</div>
+  <section id="toolkit">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Toolkit</p>
+        <h2>What I work with</h2>
+      </div>
+      <div class="stack-grid reveal">
+        <div class="stack-card">
+          <h3>Programming &amp; Web</h3>
+          <div class="pill-row">
+            <span class="pill">C#</span><span class="pill">Python</span><span class="pill">HTML</span>
+            <span class="pill">CSS</span><span class="pill">PHP</span><span class="pill">SQL</span>
+          </div>
         </div>
-        <p style="margin-top: 30px; font-size: 0.85rem; opacity: 0.7;">&copy; 2026 Muhammad Syahmi. All rights reserved.</p>
-    </footer>
+        <div class="stack-card">
+          <h3>Creative &amp; Dev Tools</h3>
+          <div class="pill-row">
+            <span class="pill">Unity</span><span class="pill">Blender</span><span class="pill">Photoshop</span>
+            <span class="pill">Illustrator</span><span class="pill">Canva</span><span class="pill">CapCut</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <h3>Productivity &amp; Language</h3>
+          <div class="pill-row">
+            <span class="pill">Word</span><span class="pill">Excel</span><span class="pill">PowerPoint</span>
+            <span class="pill">Malay — Native</span><span class="pill">English — Fluent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Projects</p>
+        <h2>Selected work</h2>
+        <p class="sub">Drag or swipe through each gallery for more shots — or use the arrows.</p>
+      </div>
+
+      <article class="project reveal" style="--proj-color:var(--tag-vr); --proj-color-soft:var(--tag-vr-soft);">
+        <div class="project-media">
+          <div class="carousel" tabindex="0" aria-label="SCHIZOMIND VR screenshots">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="schizomind-1.jpg" alt="SCHIZOMIND VR screenshot 1" data-filename="schizomind-1.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="schizomind-2.jpg" alt="SCHIZOMIND VR screenshot 2" data-filename="schizomind-2.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="schizomind-3.jpg" alt="SCHIZOMIND VR screenshot 3" data-filename="schizomind-3.jpg" onerror="portfolioImgFallback(this)"></div>
+            </div>
+            <div class="carousel-progress"></div>
+            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-tag">VR · Educational</span>
+          <h3 class="project-title">SCHIZOMIND VR</h3>
+          <p class="project-role">Lead Developer &amp; Designer</p>
+          <p class="desc">An educational VR application that simulates the sensory experience of schizophrenia using layered auditory and visual distortion. I designed the UI, built the interactive environments, and shipped a gamified symptom-check questionnaire that measures how well players understood what they experienced.</p>
+          <div class="pill-row">
+            <span class="pill">Unity</span><span class="pill">VR Interaction</span><span class="pill">UI/UX</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal" style="--proj-color:var(--tag-rpg); --proj-color-soft:var(--tag-rpg-soft);">
+        <div class="project-media">
+          <div class="carousel" tabindex="0" aria-label="C.U.R.E. screenshots">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="cure-1.jpg" alt="C.U.R.E. screenshot 1" data-filename="cure-1.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="cure-2.jpg" alt="C.U.R.E. screenshot 2" data-filename="cure-2.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="cure-3.jpg" alt="C.U.R.E. screenshot 3" data-filename="cure-3.jpg" onerror="portfolioImgFallback(this)"></div>
+            </div>
+            <div class="carousel-progress"></div>
+            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-tag">2D Action RPG</span>
+          <h3 class="project-title">C.U.R.E.</h3>
+          <p class="project-role">Lead Developer</p>
+          <p class="desc">A 2D action RPG built from the ground up — I designed the core combat and progression mechanics, then programmed and debugged the systems in Unity to keep gameplay and character interactions smooth and responsive.</p>
+          <div class="pill-row">
+            <span class="pill">Unity</span><span class="pill">C#</span><span class="pill">Game Mechanics</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal" style="--proj-color:var(--tag-3d); --proj-color-soft:var(--tag-3d-soft);">
+        <div class="project-media">
+          <div class="carousel" tabindex="0" aria-label="Kampung Carpenter's Shed screenshots">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="carpenter-1.jpg" alt="Kampung Carpenter's Shed screenshot 1" data-filename="carpenter-1.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="carpenter-2.jpg" alt="Kampung Carpenter's Shed screenshot 2" data-filename="carpenter-2.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="carpenter-3.jpg" alt="Kampung Carpenter's Shed screenshot 3" data-filename="carpenter-3.jpg" onerror="portfolioImgFallback(this)"></div>
+            </div>
+            <div class="carousel-progress"></div>
+            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-tag">3D Environment Art</span>
+          <h3 class="project-title">Kampung Carpenter's Shed</h3>
+          <p class="project-role">3D Environment Artist</p>
+          <p class="desc">A highly detailed 3D diorama modelled and textured in Blender, using mirror and screw modifiers with asset instancing to keep the workflow efficient. Realistic texturing, lighting, and environmental storytelling turn the scene into a believable "work-in-progress" narrative.</p>
+          <div class="pill-row">
+            <span class="pill">Blender</span><span class="pill">Texturing</span><span class="pill">Lighting</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Background</p>
+        <h2>Experience &amp; education</h2>
+      </div>
+
+      <div class="bg-grid reveal">
+        <div class="bg-block">
+          <h3>Work experience</h3>
+          <div class="entry">
+            <p class="role">Guru Lantikan Sekolah (GLS)</p>
+            <p class="org">Sekolah Rendah Agama Mus'ab Ibnu Umair</p>
+            <p class="when">Feb — Aug 2023</p>
+            <p class="note">Facilitated classroom learning and managed daily educational activities for students.</p>
+          </div>
+          <div class="entry">
+            <p class="role">Guru Lantikan Sekolah (GLS)</p>
+            <p class="org">KAFA Al-Ansar, Taman Sri Rampai</p>
+            <p class="when">Jul — Sep 2024</p>
+            <p class="note">Delivered structured lessons and maintained an organised learning environment.</p>
+          </div>
+          <div class="entry">
+            <p class="role">Committee Member</p>
+            <p class="org">Off-Campus Student Committee, UniSZA Besut Campus</p>
+            <p class="when">Leadership</p>
+            <p class="note">Helped organise student activities, drafted official announcements, and supported the welfare of off-campus students.</p>
+          </div>
+        </div>
+
+        <div class="bg-block">
+          <h3>Education</h3>
+          <div class="entry">
+            <p class="role">Bachelor of Information Technology (Media Informatics), Hons.</p>
+            <p class="org">Universiti Sultan Zainal Abidin, Besut</p>
+            <p class="when">2023 — Present · CGPA 3.78</p>
+          </div>
+          <div class="entry">
+            <p class="role">Secondary &amp; Religious Studies</p>
+            <p class="org">Sekolah Menengah Agama MAIWP, KL</p>
+            <p class="when">2017 — 2022</p>
+            <p class="note">PT3: 8A 3B 1C · SPM (Pure Science): 5A 5B 1C · STAM: Jayyid Jiddan</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="strip reveal">
+        <div class="bg-block">
+          <h3>Certificates</h3>
+          <ul class="badge-list">
+            <li>Fundamental of Commercial Photography — EduFlexS UniSZA <span class="date">Dec 2025</span></li>
+            <li>Camera, Composition &amp; Lens Selection — EduFlexS UniSZA <span class="date">Dec 2025</span></li>
+          </ul>
+        </div>
+        <div class="bg-block">
+          <h3>Quick facts</h3>
+          <ul class="badge-list">
+            <li>Based in <span class="date">Kuala Lumpur, MY</span></li>
+            <li>Languages <span class="date">Malay · English</span></li>
+            <li>Looking for <span class="date">Internship, 2026</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h2>Let's build something.</h2>
+    <p>Open to internship opportunities in game development, interactive media, or digital design. Reach out — I reply fast.</p>
+    <div class="contact-actions">
+      <a class="btn primary" href="mailto:muhammadsyahminoor@gmail.com">muhammadsyahminoor@gmail.com</a>
+      <a class="btn" href="tel:+60136581416">+60 13-658 1416</a>
+      <a class="btn" href="https://www.linkedin.com/in/muhd-syahmi-noor" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="foot-meta">Muhammad Syahmi Bin Mohd Noor · Kuala Lumpur, Malaysia</p>
+  </div>
+</footer>
+
+<script>
+  // image fallback: shows a friendly placeholder instead of a broken image
+  function portfolioImgFallback(imgEl){
+    if (imgEl.dataset.fallbackApplied) return;
+    imgEl.dataset.fallbackApplied = "1";
+    const wrap = document.createElement('div');
+    wrap.className = 'img-placeholder';
+    const name = imgEl.getAttribute('data-filename') || 'image';
+    wrap.innerHTML = '<span>+</span><p>Add<br>' + name + '</p>';
+    imgEl.replaceWith(wrap);
+  }
+
+  // hero entrance
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero-anim').forEach(el => el.classList.add('in'));
+    }, 60);
+  });
+
+  // scroll reveal
+  if ('IntersectionObserver' in window){
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+  }
+
+  // carousels: swipe / drag / arrows / dots / keyboard
+  document.querySelectorAll('.carousel').forEach(initCarousel);
+
+  function initCarousel(carousel){
+    const track = carousel.querySelector('.carousel-track');
+    const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+    const dotsWrap = carousel.querySelector('.carousel-dots');
+    const prevBtn = carousel.querySelector('.carousel-btn.prev');
+    const nextBtn = carousel.querySelector('.carousel-btn.next');
+    const progress = carousel.querySelector('.carousel-progress');
+    const AUTOPLAY_MS = 4500;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let index = 0;
+    let startX = 0;
+    let currentTranslate = 0;
+    let dragging = false;
+    let width = carousel.clientWidth;
+    let timer = null;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+      dot.addEventListener('click', () => { goTo(i); restartAutoplay(); });
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function update(withTransition = true){
+      track.style.transition = withTransition ? 'transform .35s ease' : 'none';
+      track.style.transform = 'translateX(' + (-index * width) + 'px)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      playProgress();
+    }
+
+    function goTo(i){
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      update();
+    }
+    function next(){ goTo((index + 1) % slides.length); }
+    function prev(){ goTo((index - 1 + slides.length) % slides.length); }
+
+    function playProgress(){
+      if (!progress || reduceMotion || slides.length < 2) return;
+      progress.style.transition = 'none';
+      progress.style.width = '0%';
+      // force reflow so the next transition actually runs
+      void progress.offsetWidth;
+      progress.style.transition = 'width ' + AUTOPLAY_MS + 'ms linear';
+      progress.style.width = '100%';
+    }
+
+    function stopAutoplay(){
+      if (timer) clearInterval(timer);
+      timer = null;
+      if (progress){ progress.style.transition = 'none'; progress.style.width = '0%'; }
+    }
+
+    function startAutoplay(){
+      if (reduceMotion || slides.length < 2) return;
+      stopAutoplay();
+      timer = setInterval(next, AUTOPLAY_MS);
+      playProgress();
+    }
+
+    function restartAutoplay(){ startAutoplay(); }
+
+    prevBtn.addEventListener('click', () => { prev(); restartAutoplay(); });
+    nextBtn.addEventListener('click', () => { next(); restartAutoplay(); });
+
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight'){ next(); restartAutoplay(); }
+      if (e.key === 'ArrowLeft'){ prev(); restartAutoplay(); }
+    });
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+
+    window.addEventListener('resize', () => { width = carousel.clientWidth; update(false); });
+
+    // pointer drag / swipe
+    track.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      currentTranslate = -index * width;
+      track.style.transition = 'none';
+      track.setPointerCapture(e.pointerId);
+      stopAutoplay();
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const delta = e.clientX - startX;
+      track.style.transform = 'translateX(' + (currentTranslate + delta) + 'px)';
+    });
+    function endDrag(e){
+      if (!dragging) return;
+      dragging = false;
+      const delta = e.clientX - startX;
+      if (Math.abs(delta) > width * 0.18){
+        if (delta < 0) next(); else prev();
+      } else {
+        update();
+      }
+      restartAutoplay();
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointerleave', (e) => { if (dragging) endDrag(e); });
+
+    update(false);
+    startAutoplay();
+  }
+</script>
 
 </body>
 </html>
