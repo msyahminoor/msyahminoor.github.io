@@ -133,21 +133,17 @@
   .btn.primary:hover{ background:#f2b451; }
 
   .hero-photo-col{ display:flex; justify-content:center; }
-  .hero-photo{ position:relative; width:100%; max-width:230px; }
+  .hero-photo{ position:relative; width:100%; max-width:320px; }
   .hero-photo .frame{
-    aspect-ratio:1/1.08; border-radius:20px; border:1px solid var(--border);
+    aspect-ratio:1/1.08; border-radius:20px;
     background:var(--bg-panel); overflow:hidden; position:relative;
   }
   .hero-photo img{ width:100%; height:100%; object-fit:cover; }
-  .hero-photo .frame::after{
-    content:""; position:absolute; inset:0;
-    box-shadow:inset 0 0 0 1px rgba(232,163,61,0.22); border-radius:20px; pointer-events:none;
-  }
-  .vf-corner{ position:absolute; width:22px; height:22px; pointer-events:none; }
-  .vf-corner.tl{ top:-9px; left:-9px; border-top:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:4px 0 0 0; }
-  .vf-corner.tr{ top:-9px; right:-9px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 4px 0 0; }
-  .vf-corner.bl{ bottom:-9px; left:-9px; border-bottom:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:0 0 0 4px; }
-  .vf-corner.br{ bottom:-9px; right:-9px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 0 4px 0; }
+  .vf-corner{ position:absolute; width:26px; height:26px; pointer-events:none; }
+  .vf-corner.tl{ top:-10px; left:-10px; border-top:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:4px 0 0 0; }
+  .vf-corner.tr{ top:-10px; right:-10px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 4px 0 0; }
+  .vf-corner.bl{ bottom:-10px; left:-10px; border-bottom:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:0 0 0 4px; }
+  .vf-corner.br{ bottom:-10px; right:-10px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 0 4px 0; }
   .name-plate{
     font-family:var(--font-display); font-weight:700; font-size:15px;
     letter-spacing:0.02em; color:var(--text-dim); margin:0 0 10px;
@@ -348,7 +344,7 @@
           <div class="vf-corner br"></div>
           <div class="frame">
             <!-- Upload your photo to the repo root named profile.jpg -->
-            <img src="syahminoor_prof_nobg.png" alt="Portrait of Muhammad Syahmi Bin Mohd Noor" data-filename="profile.jpg" onerror="portfolioImgFallback(this)">
+            <img src="syahminoor_prof_nobg" alt="Portrait of Muhammad Syahmi Bin Mohd Noor" data-filename="profile.jpg" onerror="portfolioImgFallback(this)">
           </div>
         </div>
       </div>
