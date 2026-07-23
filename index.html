@@ -47,7 +47,18 @@
     font-family:var(--font-body);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    position:relative;
   }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1.4px);
+    background-size:15px 15px;
+    opacity:0.55;
+    pointer-events:none;
+    z-index:0;
+  }
+  header.nav, main, footer{ position:relative; z-index:1; }
 
   a{ color:inherit; }
   img{ max-width:100%; display:block; }
@@ -131,6 +142,15 @@
   .hero-photo .frame::after{
     content:""; position:absolute; inset:0;
     box-shadow:inset 0 0 0 1px rgba(232,163,61,0.22); border-radius:20px; pointer-events:none;
+  }
+  .vf-corner{ position:absolute; width:22px; height:22px; pointer-events:none; }
+  .vf-corner.tl{ top:-9px; left:-9px; border-top:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:4px 0 0 0; }
+  .vf-corner.tr{ top:-9px; right:-9px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 4px 0 0; }
+  .vf-corner.bl{ bottom:-9px; left:-9px; border-bottom:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:0 0 0 4px; }
+  .vf-corner.br{ bottom:-9px; right:-9px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 0 4px 0; }
+  .name-plate{
+    font-family:var(--font-display); font-weight:700; font-size:15px;
+    letter-spacing:0.02em; color:var(--text-dim); margin:0 0 10px;
   }
 
   .img-placeholder{
@@ -235,11 +255,29 @@
   .entry .when{ font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.06em; margin:0 0 8px; }
   .entry p.note{ font-size:14px; color:var(--text-dim); margin:0; }
 
-  .strip{ margin-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  .badge-list{ list-style:none; margin:0; padding:0; }
-  .badge-list li{ font-size:14px; color:var(--text-dim); padding:10px 0; border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; gap:12px; }
-  .badge-list li:last-child{ border-bottom:none; }
-  .badge-list li span.date{ font-size:12px; color:var(--text-faint); white-space:nowrap; text-transform:uppercase; letter-spacing:0.04em; }
+  .strip{ margin-top:0; }
+  .strip > .section-head{ margin-bottom:26px; }
+  .cred-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .cred-card{
+    position:relative;
+    background:var(--bg-panel); border:1px dashed var(--border);
+    border-radius:14px; padding:22px 22px 20px;
+  }
+  .cred-stamp{
+    position:absolute; top:18px; right:18px;
+    width:30px; height:30px; border-radius:50%;
+    border:1.5px solid var(--accent); color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+  }
+  .cred-kicker{ font-size:11px; font-weight:700; letter-spacing:0.09em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+  .cred-title{ font-family:var(--font-display); font-weight:700; font-size:16px; margin:0 0 4px; padding-right:36px; }
+  .cred-issuer{ font-size:13px; color:var(--text-dim); margin:0 0 12px; }
+  .cred-desc{ font-size:13.5px; color:var(--text-dim); margin:0; line-height:1.55; }
+  @media (max-width:780px){ .cred-grid{ grid-template-columns:1fr; } }
+
+  .facts-row{ margin-top:28px; display:flex; flex-wrap:wrap; gap:10px; }
+  .facts-row .pill{ background:var(--bg-panel); }
 
   /* CONTACT / FOOTER */
   footer{ padding:70px 0 50px; border-top:1px solid var(--border-soft); text-align:center; }
@@ -280,6 +318,7 @@
       <li><a href="#toolkit">Toolkit</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#background">Background</a></li>
+      <li><a href="#credentials">Credentials</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a class="nav-cta" href="mailto:muhammadsyahminoor@gmail.com">Say hi</a>
@@ -292,6 +331,7 @@
     <div class="wrap hero-grid">
       <div class="hero-anim">
         <p class="eyebrow">Final-year · Media Informatics · UniSZA</p>
+        <p class="name-plate">Muhammad Syahmi Bin Mohd Noor</p>
         <h1>I create <span class="accent">games, VR experiences,</span> and 3D worlds that pull people in.</h1>
         <p class="lede">Final-year Bachelor of Information Technology (Media Informatics) student, CGPA 3.78. I love taking apart how a game teaches, tells a story, or reacts to a player — then building my own version of it, whether that's a VR headset experience, a 2D dungeon, or a fully modelled 3D scene.</p>
         <div class="hero-actions">
@@ -302,6 +342,10 @@
       </div>
       <div class="hero-photo-col hero-anim" style="transition-delay:.12s;">
         <div class="hero-photo">
+          <div class="vf-corner tl"></div>
+          <div class="vf-corner tr"></div>
+          <div class="vf-corner bl"></div>
+          <div class="vf-corner br"></div>
           <div class="frame">
             <!-- Upload your photo to the repo root named profile.jpg -->
             <img src="profile.jpg" alt="Portrait of Muhammad Syahmi Bin Mohd Noor" data-filename="profile.jpg" onerror="portfolioImgFallback(this)">
@@ -403,11 +447,11 @@
 
       <article class="project reveal" style="--proj-color:var(--tag-3d); --proj-color-soft:var(--tag-3d-soft);">
         <div class="project-media">
-          <div class="carousel" tabindex="0" aria-label="Kampung Carpenter's Shed screenshots">
+          <div class="carousel" tabindex="0" aria-label="Carpenter's Shed screenshots">
             <div class="carousel-track">
-              <div class="carousel-slide"><img src="carpenter-1.jpg" alt="Kampung Carpenter's Shed screenshot 1" data-filename="carpenter-1.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="carpenter-2.jpg" alt="Kampung Carpenter's Shed screenshot 2" data-filename="carpenter-2.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="carpenter-3.jpg" alt="Kampung Carpenter's Shed screenshot 3" data-filename="carpenter-3.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="carpenter-1.jpg" alt="Carpenter's Shed screenshot 1" data-filename="carpenter-1.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="carpenter-2.jpg" alt="Carpenter's Shed screenshot 2" data-filename="carpenter-2.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="carpenter-3.jpg" alt="Carpenter's Shed screenshot 3" data-filename="carpenter-3.jpg" onerror="portfolioImgFallback(this)"></div>
             </div>
             <div class="carousel-progress"></div>
             <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
@@ -417,7 +461,7 @@
         </div>
         <div class="project-body">
           <span class="project-tag">3D Environment Art</span>
-          <h3 class="project-title">Kampung Carpenter's Shed</h3>
+          <h3 class="project-title">Carpenter's Shed</h3>
           <p class="project-role">3D Environment Artist</p>
           <p class="desc">A highly detailed 3D diorama modelled and textured in Blender, using mirror and screw modifiers with asset instancing to keep the workflow efficient. Realistic texturing, lighting, and environmental storytelling turn the scene into a believable "work-in-progress" narrative.</p>
           <div class="pill-row">
@@ -473,22 +517,48 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
+  <section id="credentials">
+    <div class="wrap">
       <div class="strip reveal">
-        <div class="bg-block">
-          <h3>Certificates</h3>
-          <ul class="badge-list">
-            <li>Fundamental of Commercial Photography — EduFlexS UniSZA <span class="date">Dec 2025</span></li>
-            <li>Camera, Composition &amp; Lens Selection — EduFlexS UniSZA <span class="date">Dec 2025</span></li>
-          </ul>
+        <div class="section-head">
+          <p class="eyebrow">Credentials</p>
+          <h2>Certificates &amp; short courses</h2>
         </div>
-        <div class="bg-block">
-          <h3>Quick facts</h3>
-          <ul class="badge-list">
-            <li>Based in <span class="date">Kuala Lumpur, MY</span></li>
-            <li>Languages <span class="date">Malay · English</span></li>
-            <li>Looking for <span class="date">Internship, 2026</span></li>
-          </ul>
+        <div class="cred-grid">
+          <div class="cred-card">
+            <span class="cred-stamp">&#10003;</span>
+            <p class="cred-kicker">Micro-Credential · UniSZA</p>
+            <h3 class="cred-title">Fundamental of Commercial Photography</h3>
+            <p class="cred-issuer">December 2025</p>
+            <p class="cred-desc">Learned visual strategy techniques for producing polished digital assets used in social media marketing and promotional campaigns.</p>
+          </div>
+          <div class="cred-card">
+            <span class="cred-stamp">&#10003;</span>
+            <p class="cred-kicker">Micro-Credential · UniSZA</p>
+            <h3 class="cred-title">Camera, Composition &amp; Lens Selection</h3>
+            <p class="cred-issuer">December 2025</p>
+            <p class="cred-desc">Built hands-on control of manual exposure, focal length, and lens choice across a range of shooting environments.</p>
+          </div>
+          <div class="cred-card">
+            <span class="cred-stamp">&#10003;</span>
+            <p class="cred-kicker">Short Course · Kolej Komuniti Selayang</p>
+            <h3 class="cred-title" style="margin-bottom:12px;">Motion Capture Technology</h3>
+            <p class="cred-desc">Gained hands-on experience tracking, capturing, and processing real-world human movement into digital data for character rigging.</p>
+          </div>
+          <div class="cred-card">
+            <span class="cred-stamp">&#10003;</span>
+            <p class="cred-kicker">Short Course · Kolej Komuniti Selayang</p>
+            <h3 class="cred-title" style="margin-bottom:12px;">3D Animation Development Technology</h3>
+            <p class="cred-desc">Developed technical skills in keyframing, timeline animation, and character rigging mechanics.</p>
+          </div>
+        </div>
+        <div class="facts-row">
+          <span class="pill">Based in Kuala Lumpur, MY</span>
+          <span class="pill">Malay · English</span>
+          <span class="pill">Looking for Internship, 2026</span>
         </div>
       </div>
     </div>
