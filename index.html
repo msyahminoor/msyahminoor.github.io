@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio - Syahmi</title>
+<title>Muhammad Syahmi — Game &amp; Media Portfolio</title>
 <meta name="description" content="Portfolio of Muhammad Syahmi Bin Mohd Noor — Media Informatics student, game and VR developer, 3D artist.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,8 @@
     --tag-rpg-soft:rgba(232,163,61,0.14);
     --tag-3d:#d9836b;
     --tag-3d-soft:rgba(217,131,107,0.14);
+    --tag-anim:#b98bd9;
+    --tag-anim-soft:rgba(185,139,217,0.14);
     --radius:16px;
     --font-display:'Sora', sans-serif;
     --font-body:'Inter', sans-serif;
@@ -209,6 +211,9 @@
   .project-title{ font-family:var(--font-display); font-size:24px; font-weight:700; margin:0 0 4px; }
   .project-role{ font-size:13.5px; color:var(--text-dim); margin:0 0 14px; }
   .project p.desc{ margin:0 0 18px; font-size:15.5px; color:var(--text); max-width:74ch; }
+  .project ul.desc-list{ margin:0 0 18px; padding-left:20px; max-width:74ch; }
+  .project ul.desc-list li{ font-size:15.5px; color:var(--text); margin-bottom:7px; }
+  .project ul.desc-list li:last-child{ margin-bottom:0; }
   .project .pill-row .pill{ font-size:12.5px; padding:5px 11px; }
   @media (max-width:600px){
     .project-media{ padding:14px 14px 0; }
@@ -421,9 +426,12 @@
         </div>
         <div class="project-body">
           <span class="project-tag">VR · Educational</span>
-          <h3 class="project-title">SCHIZOMIND VR</h3>
-          <p class="project-role">Lead Developer &amp; Designer</p>
-          <p class="desc">An educational VR application that simulates the sensory experience of schizophrenia using layered auditory and visual distortion. I designed the UI, built the interactive environments, and shipped a gamified symptom-check questionnaire that measures how well players understood what they experienced.</p>
+          <h3 class="project-title">SchizoMind VR</h3>
+          <p class="project-role">Lead Developer &amp; Designer — Final Year Project (FYP)</p>
+          <ul class="desc-list">
+            <li>Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics.</li>
+            <li>Designed the UI, interactive environments, and a gamified symptom-check questionnaire to measure user understanding.</li>
+          </ul>
           <div class="pill-row">
             <span class="pill">Unity</span><span class="pill">VR Interaction</span><span class="pill">UI/UX</span>
           </div>
@@ -447,8 +455,11 @@
         <div class="project-body">
           <span class="project-tag">3D Action RPG</span>
           <h3 class="project-title">C.U.R.E.</h3>
-          <p class="project-role">Lead Developer</p>
-          <p class="desc">A 3D action RPG built from the ground up — I designed the core combat and progression mechanics, then programmed and debugged the systems in Unity to keep gameplay and character interactions smooth and responsive.</p>
+          <p class="project-role">Gameplay Programmer — Team Project</p>
+          <ul class="desc-list">
+            <li>Teamed up to design and develop boss fight mechanics for a 3D action RPG.</li>
+            <li>Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.</li>
+          </ul>
           <div class="pill-row">
             <span class="pill">Unity</span><span class="pill">C#</span><span class="pill">Game Mechanics</span>
           </div>
@@ -470,12 +481,42 @@
           </div>
         </div>
         <div class="project-body">
-          <span class="project-tag">3D Environment Art</span>
+          <span class="project-tag">3D Isometric Diorama</span>
           <h3 class="project-title">Carpenter's Shed</h3>
           <p class="project-role">3D Environment Artist</p>
-          <p class="desc">A highly detailed 3D diorama modelled and textured in Blender, using mirror and screw modifiers with asset instancing to keep the workflow efficient. Realistic texturing, lighting, and environmental storytelling turn the scene into a believable "work-in-progress" narrative.</p>
+          <ul class="desc-list">
+            <li>Modeled and textured a highly detailed 3D diorama, utilizing mirror modifiers, screw modifiers, and asset instancing to optimize workflow.</li>
+            <li>Applied realistic texturing, lighting, and environmental storytelling to create a compelling "work-in-progress" narrative.</li>
+          </ul>
           <div class="pill-row">
             <span class="pill">Blender</span><span class="pill">Texturing</span><span class="pill">Lighting</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reveal" style="--proj-color:var(--tag-anim); --proj-color-soft:var(--tag-anim-soft);">
+        <div class="project-media">
+          <div class="carousel" tabindex="0" aria-label="Cleaning Room screenshots">
+            <div class="carousel-track">
+              <div class="carousel-slide"><img src="cleaningroom-1.jpg" alt="Cleaning Room screenshot 1" data-filename="cleaningroom-1.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="cleaningroom-2.jpg" alt="Cleaning Room screenshot 2" data-filename="cleaningroom-2.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="cleaningroom-3.jpg" alt="Cleaning Room screenshot 3" data-filename="cleaningroom-3.jpg" onerror="portfolioImgFallback(this)"></div>
+            </div>
+            <div class="carousel-progress"></div>
+            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+            <div class="carousel-dots"></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-tag">3D Animation</span>
+          <h3 class="project-title">Cleaning Room</h3>
+          <p class="project-role">3D Animator</p>
+          <ul class="desc-list">
+            <li>Developed a cohesive 3D animated sequence featuring environmental interactions, utilizing technical skills in keyframing, timeline animation, and character mechanics.</li>
+          </ul>
+          <div class="pill-row">
+            <span class="pill">Blender</span><span class="pill">Keyframing</span><span class="pill">Timeline Animation</span>
           </div>
         </div>
       </article>
