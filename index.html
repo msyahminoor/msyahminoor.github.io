@@ -121,7 +121,25 @@
     font-weight:700; line-height:1.14; margin:0 0 20px; letter-spacing:-0.01em;
   }
   .hero h1 .accent{ color:var(--accent); }
-  .hero p.lede{ font-size:16.5px; color:var(--text-dim); max-width:52ch; margin:0 0 30px; }
+  .name-hero{
+    font-family:var(--font-display);
+    font-size:clamp(42px, 6.2vw, 68px);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+    margin:0 0 22px;
+  }
+  .name-hero .first{ display:block; font-weight:800; color:var(--text); }
+  .name-hero .last{ display:block; font-weight:400; color:var(--accent); }
+  .role-tagline{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(17px, 2vw, 21px);
+    color:var(--text-dim);
+    line-height:1.4;
+    max-width:46ch;
+    margin:0 0 20px;
+  }
+  .hero p.lede{ font-size:15.5px; color:var(--text-dim); max-width:52ch; margin:0 0 30px; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; }
   .btn{
     font-size:14px; text-decoration:none; padding:12px 20px; border-radius:999px;
@@ -144,10 +162,6 @@
   .vf-corner.tr{ top:-10px; right:-10px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 4px 0 0; }
   .vf-corner.bl{ bottom:-10px; left:-10px; border-bottom:2px solid var(--accent); border-left:2px solid var(--accent); border-radius:0 0 0 4px; }
   .vf-corner.br{ bottom:-10px; right:-10px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); border-radius:0 0 4px 0; }
-  .name-plate{
-    font-family:var(--font-display); font-weight:700; font-size:15px;
-    letter-spacing:0.02em; color:var(--text-dim); margin:0 0 10px;
-  }
 
   .img-placeholder{
     width:100%; height:100%; min-height:160px;
@@ -324,8 +338,8 @@
     <div class="wrap hero-grid">
       <div class="hero-anim">
         <p class="eyebrow">Final-year · Media Informatics · UniSZA</p>
-        <p class="name-plate">Muhammad Syahmi Bin Mohd Noor</p>
-        <h1>I design and build — <span class="accent">3D worlds, visuals, and the websites</span> that bring them to life.</h1>
+        <h1 class="name-hero"><span class="first">Muhammad Syahmi</span><span class="last">Mohd Noor</span></h1>
+        <p class="role-tagline">I design and build — 3D worlds, visuals, and the websites that bring them to life.</p>
         <p class="lede">Final-year Bachelor of Information Technology (Media Informatics) student, CGPA 3.78. My core focus is 3D modelling, graphic design, and web design &amp; development — with game design and VR as the other side of that same toolkit. I like figuring out how something should look, feel, and work, then building it myself.</p>
         <div class="hero-actions">
           <a class="btn primary" href="mailto:muhammadsyahminoor@gmail.com">Email me</a>
