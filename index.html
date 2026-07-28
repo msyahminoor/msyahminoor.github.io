@@ -296,8 +296,20 @@
   @media (max-width:900px){
     .project.active { flex: 0 0 100%; } 
     .project { flex: 0 0 85%; }
-    .proj-slider-btn { display: none; } 
+    
+    /* Bring arrows back on mobile, but make them slightly smaller */
+    .proj-slider-btn { 
+      display: block;
+      width: 40px; 
+      height: 40px; 
+      font-size: 16px; 
+    }
+    
+    /* Push them slightly outward so they don't cover the text */
+    .proj-slider-btn.prev { left: -12px; } 
+    .proj-slider-btn.next { right: -12px; }
   }
+  
   @media (max-width:600px){
     .project-media{ padding:14px 14px 0; }
     .project-body{ padding:22px 20px 26px; }
