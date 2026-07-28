@@ -224,12 +224,13 @@
   .carousel{
     position:relative; aspect-ratio:16/9; background:var(--bg-panel-alt);
     overflow:hidden; outline-offset:-3px; border-radius:12px;
-    width:100%; border:1px solid var(--border-soft);
+    width:100%; max-width:680px; margin:0 auto;
+    border:1px solid var(--border-soft);
   }
   .carousel-track{ display:flex; height:100%; touch-action:pan-y; cursor:grab; }
   .carousel-track:active{ cursor:grabbing; }
   .carousel-slide{ flex:0 0 100%; height:100%; }
-  .carousel-slide img{ width:100%; height:100%; object-fit:cover; user-select:none; -webkit-user-drag:none; transition:transform .5s ease; }
+  .carousel-slide img{ width:100%; height:100%; object-fit:cover; user-select:none; -webkit-user-drag:none; transition:transform .5s ease; cursor:zoom-in; }
   .carousel:hover .carousel-slide img{ transform:scale(1.03); }
   .carousel-progress{
     position:absolute; top:0; left:0; height:3px; width:0%;
@@ -237,19 +238,19 @@
   }
   .carousel-btn{
     position:absolute; top:50%; transform:translateY(-50%);
-    width:40px; height:40px; border-radius:50%; border:none;
+    width:38px; height:38px; border-radius:50%; border:none;
     background:rgba(18,20,28,0.55); backdrop-filter:blur(4px);
     color:#fff; display:flex; align-items:center; justify-content:center;
     cursor:pointer; opacity:0; transition:opacity .15s ease, background .15s ease;
-    font-size:16px;
+    font-size:15px; z-index:3;
   }
   .carousel:hover .carousel-btn, .carousel:focus-within .carousel-btn{ opacity:1; }
   .carousel-btn:hover{ background:rgba(18,20,28,0.8); }
-  .carousel-btn.prev{ left:14px; }
-  .carousel-btn.next{ right:14px; }
+  .carousel-btn.prev{ left:12px; }
+  .carousel-btn.next{ right:12px; }
   .carousel-dots{
-    position:absolute; bottom:14px; left:0; right:0;
-    display:flex; justify-content:center; gap:7px;
+    position:absolute; bottom:13px; left:0; right:0;
+    display:flex; justify-content:center; gap:7px; z-index:3;
   }
   .carousel-dot{
     width:7px; height:7px; border-radius:50%; border:none; padding:0;
@@ -257,6 +258,62 @@
   }
   .carousel-dot.active{ background:var(--accent); transform:scale(1.25); }
   @media (max-width:780px){ .carousel-btn{ opacity:1; } }
+
+  .zoom-hint{
+    position:absolute; top:12px; right:12px;
+    width:30px; height:30px; border-radius:50%;
+    background:rgba(18,20,28,0.6); backdrop-filter:blur(4px);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; color:#fff;
+    opacity:0; transition:opacity .15s ease;
+    pointer-events:none; z-index:3;
+  }
+  .carousel:hover .zoom-hint{ opacity:0.85; }
+  @media (max-width:780px){ .zoom-hint{ opacity:0.7; } }
+
+  /* LIGHTBOX */
+  .lightbox{
+    position:fixed; inset:0; z-index:300;
+    background:rgba(8,9,13,0.95);
+    display:none; align-items:center; justify-content:center;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-track{ display:flex; width:100%; height:100%; touch-action:pan-y; cursor:grab; }
+  .lightbox-track:active{ cursor:grabbing; }
+  .lightbox-slide{
+    flex:0 0 100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    padding:70px 90px;
+  }
+  .lightbox-slide img{
+    max-width:100%; max-height:100%; object-fit:contain;
+    border-radius:8px; user-select:none; -webkit-user-drag:none;
+  }
+  .lightbox-close, .lightbox-btn{
+    position:fixed; z-index:301; border:none; cursor:pointer;
+    background:rgba(255,255,255,0.08); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .15s ease;
+  }
+  .lightbox-close:hover, .lightbox-btn:hover{ background:rgba(255,255,255,0.18); }
+  .lightbox-close{ top:20px; right:20px; width:42px; height:42px; border-radius:50%; font-size:22px; line-height:1; }
+  .lightbox-btn{ top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:50%; font-size:18px; }
+  .lightbox-btn.prev{ left:16px; }
+  .lightbox-btn.next{ right:16px; }
+  .lightbox-dots{
+    position:fixed; bottom:22px; left:0; right:0; z-index:301;
+    display:flex; justify-content:center; gap:8px;
+  }
+  .lightbox-dot{
+    width:8px; height:8px; border-radius:50%; border:none; padding:0;
+    background:rgba(255,255,255,0.35); cursor:pointer; transition:background .15s ease, transform .15s ease;
+  }
+  .lightbox-dot.active{ background:var(--accent); transform:scale(1.25); }
+  @media (max-width:600px){
+    .lightbox-slide{ padding:60px 20px; }
+    .lightbox-btn.prev{ left:8px; }
+    .lightbox-btn.next{ right:8px; }
+  }
 
   /* BACKGROUND (experience / education) */
   .bg-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
@@ -404,7 +461,7 @@
       <div class="section-head reveal">
         <p class="eyebrow">Projects</p>
         <h2>Selected work</h2>
-        <p class="sub">Drag or swipe through each gallery for more shots — or use the arrows.</p>
+        <p class="sub">Drag or swipe through each gallery for more shots, or click an image to view it enlarged.</p>
       </div>
 
       <article class="project reveal" style="--proj-color:var(--tag-vr); --proj-color-soft:var(--tag-vr-soft);">
@@ -422,6 +479,7 @@
             <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
             <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
             <div class="carousel-dots"></div>
+            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
           </div>
         </div>
         <div class="project-body">
@@ -442,15 +500,16 @@
         <div class="project-media">
           <div class="carousel" tabindex="0" aria-label="C.U.R.E. screenshots">
             <div class="carousel-track">
-              <div class="carousel-slide"><img src="CURE-menu.png" alt="C.U.R.E. screenshot 1" data-filename="cure-1.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="CURE-start.png" alt="C.U.R.E. screenshot 2" data-filename="cure-2.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="CURE-enemies.png" alt="C.U.R.E. screenshot 3" data-filename="cure-3.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="CURE-bosscode.png" alt="C.U.R.E. screenshot 4" data-filename="cure-4.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="CURE-menu.png" alt="C.U.R.E. screenshot 1" data-filename="CURE-menu.png" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="CURE-start.png" alt="C.U.R.E. screenshot 2" data-filename="CURE-start.png" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="CURE-enemies.png" alt="C.U.R.E. screenshot 3" data-filename="CURE-enemies.png" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="CURE-bosscode.png" alt="C.U.R.E. screenshot 4" data-filename="CURE-bosscode.png" onerror="portfolioImgFallback(this)"></div>
             </div>
             <div class="carousel-progress"></div>
             <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
             <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
             <div class="carousel-dots"></div>
+            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
           </div>
         </div>
         <div class="project-body">
@@ -473,18 +532,19 @@
             <div class="carousel-track">
               <div class="carousel-slide"><img src="Perpective.png" alt="Carpenter's Shed screenshot 1" data-filename="Perpective.png" onerror="portfolioImgFallback(this)"></div>
               <div class="carousel-slide"><img src="Scene1.png" alt="Carpenter's Shed screenshot 2" data-filename="Scene1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Chair1.png" alt="Carpenter's Shed screenshot 3" data-filename="Chair1.png.jpg" onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="Chair1.png" alt="Carpenter's Shed screenshot 3" data-filename="Chair1.png" onerror="portfolioImgFallback(this)"></div>
               <div class="carousel-slide"><img src="Chisel3.png" alt="Carpenter's Shed screenshot 4" data-filename="Chisel3.png" onerror="portfolioImgFallback(this)"></div>
               <div class="carousel-slide"><img src="Hammer3.png" alt="Carpenter's Shed screenshot 5" data-filename="Hammer3.png" onerror="portfolioImgFallback(this)"></div>
               <div class="carousel-slide"><img src="Saw3.png" alt="Carpenter's Shed screenshot 6" data-filename="Saw3.png" onerror="portfolioImgFallback(this)"></div>
               <div class="carousel-slide"><img src="ScrewSS1.png" alt="Carpenter's Shed screenshot 7" data-filename="ScrewSS1.png" onerror="portfolioImgFallback(this)"></div>
               <div class="carousel-slide"><img src="Shelf1.png" alt="Carpenter's Shed screenshot 8" data-filename="Shelf1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Top.png" alt="Carpenter's Shed screenshot 9" data-filename="Top.png onerror="portfolioImgFallback(this)"></div>
+              <div class="carousel-slide"><img src="Top.png" alt="Carpenter's Shed screenshot 9" data-filename="Top.png" onerror="portfolioImgFallback(this)"></div>
             </div>
             <div class="carousel-progress"></div>
             <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
             <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
             <div class="carousel-dots"></div>
+            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
           </div>
         </div>
         <div class="project-body">
@@ -513,6 +573,7 @@
             <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
             <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
             <div class="carousel-dots"></div>
+            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
           </div>
         </div>
         <div class="project-body">
@@ -638,6 +699,14 @@
   </div>
 </footer>
 
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+  <button class="lightbox-btn prev" aria-label="Previous image">&#10094;</button>
+  <button class="lightbox-btn next" aria-label="Next image">&#10095;</button>
+  <div class="lightbox-track"></div>
+  <div class="lightbox-dots"></div>
+</div>
+
 <script>
   // image fallback: shows a friendly placeholder instead of a broken image
   function portfolioImgFallback(imgEl){
@@ -673,7 +742,127 @@
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
   }
 
-  // carousels: swipe / drag / arrows / dots / keyboard
+  /* ---------- LIGHTBOX ---------- */
+  const lightbox = document.getElementById('lightbox');
+  const lbTrack = lightbox.querySelector('.lightbox-track');
+  const lbDots = lightbox.querySelector('.lightbox-dots');
+  const lbPrev = lightbox.querySelector('.lightbox-btn.prev');
+  const lbNext = lightbox.querySelector('.lightbox-btn.next');
+  const lbClose = lightbox.querySelector('.lightbox-close');
+  const allCarousels = [];
+
+  let lbIndex = 0;
+  let lbSlideCount = 0;
+  let lbWidth = window.innerWidth;
+  let lbDragging = false;
+  let lbStartX = 0;
+  let lbCurrentTranslate = 0;
+  let lbDragMoved = false;
+
+  function openLightbox(images, startIndex){
+    lbTrack.innerHTML = '';
+    lbDots.innerHTML = '';
+    images.forEach((imgData, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'lightbox-slide';
+      const img = document.createElement('img');
+      img.src = imgData.src;
+      img.alt = imgData.alt || '';
+      slide.appendChild(img);
+      lbTrack.appendChild(slide);
+
+      const dot = document.createElement('button');
+      dot.className = 'lightbox-dot' + (i === startIndex ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+      dot.addEventListener('click', () => lbGoTo(i));
+      lbDots.appendChild(dot);
+    });
+    lbSlideCount = images.length;
+    lbIndex = startIndex;
+    lbWidth = window.innerWidth;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    updateLightbox(false);
+    allCarousels.forEach(c => c.stop());
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    allCarousels.forEach(c => c.start());
+  }
+
+  function updateLightbox(withTransition = true){
+    lbTrack.style.transition = withTransition ? 'transform .3s ease' : 'none';
+    lbTrack.style.transform = 'translateX(' + (-lbIndex * lbWidth) + 'px)';
+    Array.from(lbDots.children).forEach((d, i) => d.classList.toggle('active', i === lbIndex));
+  }
+  function lbGoTo(i){
+    lbIndex = Math.max(0, Math.min(lbSlideCount - 1, i));
+    updateLightbox();
+  }
+  function lbNextSlide(){ lbGoTo((lbIndex + 1) % lbSlideCount); }
+  function lbPrevSlide(){ lbGoTo((lbIndex - 1 + lbSlideCount) % lbSlideCount); }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', lbPrevSlide);
+  lbNext.addEventListener('click', lbNextSlide);
+
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lbNextSlide();
+    if (e.key === 'ArrowLeft') lbPrevSlide();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') lbNextSlide();
+    if (e.key === 'ArrowLeft') lbPrevSlide();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!lightbox.classList.contains('open')) return;
+    lbWidth = window.innerWidth;
+    updateLightbox(false);
+  });
+
+  // click backdrop (not the image itself) to close
+  lbTrack.addEventListener('click', (e) => {
+    if (lbDragMoved){ lbDragMoved = false; return; }
+    if (e.target.tagName !== 'IMG') closeLightbox();
+  });
+
+  // drag / swipe inside lightbox
+  lbTrack.addEventListener('pointerdown', (e) => {
+    lbDragging = true;
+    lbDragMoved = false;
+    lbStartX = e.clientX;
+    lbCurrentTranslate = -lbIndex * lbWidth;
+    lbTrack.style.transition = 'none';
+    lbTrack.setPointerCapture(e.pointerId);
+  });
+  lbTrack.addEventListener('pointermove', (e) => {
+    if (!lbDragging) return;
+    const delta = e.clientX - lbStartX;
+    if (Math.abs(delta) > 6) lbDragMoved = true;
+    lbTrack.style.transform = 'translateX(' + (lbCurrentTranslate + delta) + 'px)';
+  });
+  function lbEndDrag(e){
+    if (!lbDragging) return;
+    lbDragging = false;
+    const delta = e.clientX - lbStartX;
+    if (Math.abs(delta) > lbWidth * 0.15){
+      if (delta < 0) lbNextSlide(); else lbPrevSlide();
+    } else {
+      updateLightbox();
+    }
+  }
+  lbTrack.addEventListener('pointerup', lbEndDrag);
+  lbTrack.addEventListener('pointerleave', (e) => { if (lbDragging) lbEndDrag(e); });
+
+  /* ---------- CAROUSELS ---------- */
   document.querySelectorAll('.carousel').forEach(initCarousel);
 
   function initCarousel(carousel){
@@ -689,6 +878,7 @@
     let startX = 0;
     let currentTranslate = 0;
     let dragging = false;
+    let dragMoved = false;
     let width = carousel.clientWidth;
     let timer = null;
 
@@ -719,7 +909,6 @@
       if (!progress || reduceMotion || slides.length < 2) return;
       progress.style.transition = 'none';
       progress.style.width = '0%';
-      // force reflow so the next transition actually runs
       void progress.offsetWidth;
       progress.style.transition = 'width ' + AUTOPLAY_MS + 'ms linear';
       progress.style.width = '100%';
@@ -733,6 +922,7 @@
 
     function startAutoplay(){
       if (reduceMotion || slides.length < 2) return;
+      if (lightbox.classList.contains('open')) return;
       stopAutoplay();
       timer = setInterval(next, AUTOPLAY_MS);
       playProgress();
@@ -758,6 +948,7 @@
     // pointer drag / swipe
     track.addEventListener('pointerdown', (e) => {
       dragging = true;
+      dragMoved = false;
       startX = e.clientX;
       currentTranslate = -index * width;
       track.style.transition = 'none';
@@ -767,6 +958,7 @@
     track.addEventListener('pointermove', (e) => {
       if (!dragging) return;
       const delta = e.clientX - startX;
+      if (Math.abs(delta) > 6) dragMoved = true;
       track.style.transform = 'translateX(' + (currentTranslate + delta) + 'px)';
     });
     function endDrag(e){
@@ -783,8 +975,21 @@
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointerleave', (e) => { if (dragging) endDrag(e); });
 
+    // click an image (without having dragged) opens the lightbox
+    track.addEventListener('click', (e) => {
+      if (dragMoved){ dragMoved = false; return; }
+      const img = e.target.closest('img');
+      if (!img) return;
+      const imgs = Array.from(carousel.querySelectorAll('.carousel-slide img'));
+      const clickedIndex = imgs.indexOf(img);
+      if (clickedIndex === -1) return;
+      openLightbox(imgs.map(i => ({ src: i.src, alt: i.alt })), clickedIndex);
+    });
+
     update(false);
     startAutoplay();
+
+    allCarousels.push({ stop: stopAutoplay, start: startAutoplay });
   }
 </script>
 
