@@ -207,23 +207,28 @@
   }
 
   .project {
-    background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius);
-    overflow:hidden; margin-bottom:0;
-    flex: 0 0 280px; /* Narrow width for inactive cards */
-    opacity: 0.6;
+    background: var(--bg-panel); 
+    border: 1px solid var(--border-soft); 
+    border-radius: var(--radius);
+    overflow: hidden; 
+    margin-bottom: 0;
+    flex: 0 0 280px; /* Fixed width for inactive cards */
+    opacity: 0.5;
     cursor: pointer;
-    transform-origin: left center;
-    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, box-shadow .18s ease;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, box-shadow .18s ease;
   }
-  .project:hover { box-shadow:0 16px 36px -20px rgba(0,0,0,0.6); }
+  .project:hover { 
+    opacity: 0.8;
+    box-shadow: 0 16px 36px -20px rgba(0,0,0,0.6); 
+  }
   
   .project.active {
-    flex: 0 0 calc(100% - 304px); /* Expands to fill space, leaving 280px + 24px gap for the next card */
+    flex: 0 0 calc(100% - 304px); /* Expands leaving room for next card + gap */
     opacity: 1;
     cursor: default;
   }
 
-  /* Hide detailed content on inactive cards to keep them clean */
+  /* Hide lower details on inactive cards */
   .project:not(.active) .project-role,
   .project:not(.active) p.desc,
   .project:not(.active) ul.desc-list,
@@ -235,15 +240,25 @@
     display: none; 
   }
 
+  /* Keep the title looking clean when compressed */
   .project:not(.active) .project-title {
-    font-size: 18px;
+    font-size: 19px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 0;
   }
 
   .project-media{ position:relative; padding:20px 20px 0; }
-  .project-body{ padding:26px 30px 30px; display:flex; flex-direction:column; }
+  
+  /* Ensure the body acts as a solid block */
+  .project-body { 
+    padding: 26px 30px 30px; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100%;
+  }
+  
   .project-tag{
     align-self:flex-start; font-size:11.5px; padding:6px 12px; border-radius:999px;
     color:var(--proj-color, var(--accent)); background:var(--proj-color-soft, var(--accent-soft));
@@ -1037,8 +1052,6 @@
     carousel.addEventListener('focusin', stopAutoplay);
     carousel.addEventListener('focusout', startAutoplay);
 
-    window.addEventListener('resize', () => { width = carousel.clientWidth; update(false); });
-
     // pointer drag / swipe
     track.addEventListener('pointerdown', (e) => {
       dragging = true;
@@ -1085,6 +1098,17 @@
     startAutoplay();
 
     allCarousels.push({ stop: stopAutoplay, start: startAutoplay });
+
+    // Fluidly updates the image position as the card expands/shrinks
+    const resizeObserver = new ResizeObserver(() => {
+      if (width !== carousel.clientWidth) {
+        width = carousel.clientWidth;
+        // Keep images perfectly aligned without transition lag while resizing
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(' + (-index * width) + 'px)';
+      }
+    });
+    resizeObserver.observe(carousel);
   }
 
   /* ---------- EXPANDING PROJECT SLIDER ---------- */
@@ -1095,7 +1119,11 @@
   let currentProjIndex = 0;
 
   function updateProjectSlider() {
-    let offset = 0;
+    // 280px is the inactive card width, 24px is the flex gap. 
+    // This perfectly calculates the slide distance without relying on mid-animation widths.
+    const INACTIVE_WIDTH = 280; 
+    const GAP = 24; 
+    let offset = currentProjIndex * (INACTIVE_WIDTH + GAP);
 
     projCards.forEach((card, index) => {
       if (index === currentProjIndex) {
@@ -1103,23 +1131,10 @@
       } else {
         card.classList.remove('active');
       }
-
-      // Calculate track translation (slide left)
-      if (index < currentProjIndex) {
-        // Add the width of passed cards plus the 24px gap
-        offset += card.offsetWidth + 24; 
-      }
     });
 
-    // Move the entire track
+    // Move the entire track exactly to the left edge of the active card
     projTrack.style.transform = `translateX(-${offset}px)`;
-
-    // Fix internal image carousels:
-    // Because the card size changes dynamically, the internal image slider needs to recalculate its width.
-    // Triggering a window resize event forces the existing initCarousel logic to update.
-    setTimeout(() => {
-      window.dispatchEvent(new Event('resize'));
-    }, 600); // Wait for CSS transition to finish
   }
 
   // Next Button
@@ -1145,9 +1160,7 @@
   // Click an inactive card to expand it
   projCards.forEach((card, index) => {
     card.addEventListener('click', (e) => {
-      // Don't trigger if they are clicking the internal image carousel arrows
       if (e.target.closest('.carousel-btn') || e.target.closest('.carousel-dots')) return;
-      
       if (!card.classList.contains('active')) {
         currentProjIndex = index;
         updateProjectSlider();
