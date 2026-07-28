@@ -758,6 +758,7 @@
   let lbStartX = 0;
   let lbCurrentTranslate = 0;
   let lbDragMoved = false;
+  let lbPointerDownTarget = null;
 
   function openLightbox(images, startIndex){
     lbTrack.innerHTML = '';
@@ -831,13 +832,14 @@
   // click backdrop (not the image itself) to close
   lbTrack.addEventListener('click', (e) => {
     if (lbDragMoved){ lbDragMoved = false; return; }
-    if (e.target.tagName !== 'IMG') closeLightbox();
+    if (lbPointerDownTarget && lbPointerDownTarget.tagName !== 'IMG') closeLightbox();
   });
 
   // drag / swipe inside lightbox
   lbTrack.addEventListener('pointerdown', (e) => {
     lbDragging = true;
     lbDragMoved = false;
+    lbPointerDownTarget = e.target;
     lbStartX = e.clientX;
     lbCurrentTranslate = -lbIndex * lbWidth;
     lbTrack.style.transition = 'none';
@@ -879,6 +881,7 @@
     let currentTranslate = 0;
     let dragging = false;
     let dragMoved = false;
+    let pointerDownImg = null;
     let width = carousel.clientWidth;
     let timer = null;
 
@@ -949,6 +952,7 @@
     track.addEventListener('pointerdown', (e) => {
       dragging = true;
       dragMoved = false;
+      pointerDownImg = e.target.closest('img');
       startX = e.clientX;
       currentTranslate = -index * width;
       track.style.transition = 'none';
@@ -978,7 +982,7 @@
     // click an image (without having dragged) opens the lightbox
     track.addEventListener('click', (e) => {
       if (dragMoved){ dragMoved = false; return; }
-      const img = e.target.closest('img');
+      const img = pointerDownImg;
       if (!img) return;
       const imgs = Array.from(carousel.querySelectorAll('.carousel-slide img'));
       const clickedIndex = imgs.indexOf(img);
