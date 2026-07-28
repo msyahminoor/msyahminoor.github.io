@@ -193,14 +193,55 @@
   .pill{ font-size:13.5px; padding:7px 12px; border-radius:999px; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); }
   @media (max-width:880px){ .stack-grid{ grid-template-columns:1fr; } }
 
-  /* PROJECTS */
-  .project{
-    background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius);
-    overflow:hidden; margin-bottom:32px;
-    display:block;
-    transition:box-shadow .18s ease;
+  /* --- PROJECTS EXPANDING SLIDER --- */
+  .projects-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; 
+    padding-bottom: 20px;
   }
-  .project:hover{ box-shadow:0 16px 36px -20px rgba(0,0,0,0.6); }
+  .projects-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .project {
+    background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius);
+    overflow:hidden; margin-bottom:0;
+    flex: 0 0 280px; /* Narrow width for inactive cards */
+    opacity: 0.6;
+    cursor: pointer;
+    transform-origin: left center;
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, box-shadow .18s ease;
+  }
+  .project:hover { box-shadow:0 16px 36px -20px rgba(0,0,0,0.6); }
+  
+  .project.active {
+    flex: 0 0 calc(100% - 304px); /* Expands to fill space, leaving 280px + 24px gap for the next card */
+    opacity: 1;
+    cursor: default;
+  }
+
+  /* Hide detailed content on inactive cards to keep them clean */
+  .project:not(.active) .project-role,
+  .project:not(.active) p.desc,
+  .project:not(.active) ul.desc-list,
+  .project:not(.active) .pill-row,
+  .project:not(.active) .carousel-btn,
+  .project:not(.active) .carousel-progress,
+  .project:not(.active) .carousel-dots,
+  .project:not(.active) .zoom-hint {
+    display: none; 
+  }
+
+  .project:not(.active) .project-title {
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .project-media{ position:relative; padding:20px 20px 0; }
   .project-body{ padding:26px 30px 30px; display:flex; flex-direction:column; }
   .project-tag{
@@ -215,6 +256,33 @@
   .project ul.desc-list li{ font-size:15.5px; color:var(--text); margin-bottom:7px; }
   .project ul.desc-list li:last-child{ margin-bottom:0; }
   .project .pill-row .pill{ font-size:12.5px; padding:5px 11px; }
+
+  /* Slider Navigation Buttons */
+  .proj-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .proj-slider-btn:hover { background: var(--bg-panel-alt); border-color: var(--accent); }
+  .proj-slider-btn.prev { left: 0px; } 
+  .proj-slider-btn.next { right: 0px; }
+
+  @media (max-width:900px){
+    .project.active { flex: 0 0 100%; } 
+    .project { flex: 0 0 85%; }
+    .proj-slider-btn { display: none; } 
+  }
   @media (max-width:600px){
     .project-media{ padding:14px 14px 0; }
     .project-body{ padding:22px 20px 26px; }
@@ -462,133 +530,143 @@
       <div class="section-head reveal">
         <p class="eyebrow">Projects</p>
         <h2>Selected work</h2>
-        <p class="sub">Drag or swipe through each gallery for more shots, or click an image to view it enlarged.</p>
+        <p class="sub">Drag or swipe through each gallery, and click a project card to expand its details.</p>
       </div>
 
-      <article class="project reveal" style="--proj-color:var(--tag-vr); --proj-color-soft:var(--tag-vr-soft);">
-        <div class="project-media">
-          <div class="carousel" tabindex="0" aria-label="SCHIZOMIND VR screenshots">
-            <div class="carousel-track">
-              <div class="carousel-slide"><img src="SchizoMind_logo.png" alt="SCHIZOMIND VR screenshot 1" data-filename="SchizoMind_logo.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="SMVR_menu.png" alt="SCHIZOMIND VR screenshot 2" data-filename="SMVR_menu.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="SMVR_level1.png" alt="SCHIZOMIND VR screenshot 3" data-filename="SMVR_level1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="SMVR_level2.png" alt="SCHIZOMIND VR screenshot 4" data-filename="SMVR_level2.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="SMVR_level3.png" alt="SCHIZOMIND VR screenshot 5" data-filename="SMVR_level3.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="SMVR_last.png" alt="SCHIZOMIND VR screenshot 6" data-filename="SMVR_last.png" onerror="portfolioImgFallback(this)"></div>
-            </div>
-            <div class="carousel-progress"></div>
-            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
-            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
-            <div class="carousel-dots"></div>
-            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">VR · Educational</span>
-          <h3 class="project-title">SchizoMind VR</h3>
-          <p class="project-role">Lead Developer &amp; Designer — Final Year Project (FYP)</p>
-          <ul class="desc-list">
-            <li>Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics.</li>
-            <li>Successfully enhanced user empathy and awareness of schizophrenia, validated through pre- and post-experience symptom-check questionnaires.</li>
-          </ul>
-          <div class="pill-row">
-            <span class="pill">Unity</span><span class="pill">VR Interaction</span><span class="pill">UI/UX</span>
-          </div>
-        </div>
-      </article>
+      <div class="projects-slider-container reveal">
+        <div class="projects-track" id="projectsTrack">
 
-      <article class="project reveal" style="--proj-color:var(--tag-rpg); --proj-color-soft:var(--tag-rpg-soft);">
-        <div class="project-media">
-          <div class="carousel" tabindex="0" aria-label="C.U.R.E. screenshots">
-            <div class="carousel-track">
-              <div class="carousel-slide"><img src="CURE-menu.png" alt="C.U.R.E. screenshot 1" data-filename="CURE-menu.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="CURE-start.png" alt="C.U.R.E. screenshot 2" data-filename="CURE-start.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="CURE-enemies.png" alt="C.U.R.E. screenshot 3" data-filename="CURE-enemies.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="CURE-bosscode.png" alt="C.U.R.E. screenshot 4" data-filename="CURE-bosscode.png" onerror="portfolioImgFallback(this)"></div>
+          <article class="project active" style="--proj-color:var(--tag-vr); --proj-color-soft:var(--tag-vr-soft);">
+            <div class="project-media">
+              <div class="carousel" tabindex="0" aria-label="SCHIZOMIND VR screenshots">
+                <div class="carousel-track">
+                  <div class="carousel-slide"><img src="SchizoMind_logo.png" alt="SCHIZOMIND VR screenshot 1" data-filename="SchizoMind_logo.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="SMVR_menu.png" alt="SCHIZOMIND VR screenshot 2" data-filename="SMVR_menu.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="SMVR_level1.png" alt="SCHIZOMIND VR screenshot 3" data-filename="SMVR_level1.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="SMVR_level2.png" alt="SCHIZOMIND VR screenshot 4" data-filename="SMVR_level2.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="SMVR_level3.png" alt="SCHIZOMIND VR screenshot 5" data-filename="SMVR_level3.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="SMVR_last.png" alt="SCHIZOMIND VR screenshot 6" data-filename="SMVR_last.png" onerror="portfolioImgFallback(this)"></div>
+                </div>
+                <div class="carousel-progress"></div>
+                <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+                <div class="carousel-dots"></div>
+                <div class="zoom-hint" aria-hidden="true">&#128269;</div>
+              </div>
             </div>
-            <div class="carousel-progress"></div>
-            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
-            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
-            <div class="carousel-dots"></div>
-            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">3D Action RPG</span>
-          <h3 class="project-title">C.U.R.E.</h3>
-          <p class="project-role">Gameplay Programmer — Team Project</p>
-          <ul class="desc-list">
-            <li>Teamed up to design and develop boss fight mechanics for a 3D action RPG.</li>
-            <li>Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.</li>
-          </ul>
-          <div class="pill-row">
-            <span class="pill">Unity</span><span class="pill">C#</span><span class="pill">Game Mechanics</span>
-          </div>
-        </div>
-      </article>
+            <div class="project-body">
+              <span class="project-tag">VR · Educational</span>
+              <h3 class="project-title">SchizoMind VR</h3>
+              <p class="project-role">Lead Developer &amp; Designer — Final Year Project (FYP)</p>
+              <ul class="desc-list">
+                <li>Developed an educational VR application simulating schizophrenia using complex auditory and visual distortion mechanics.</li>
+                <li>Successfully enhanced user empathy and awareness of schizophrenia, validated through pre- and post-experience symptom-check questionnaires.</li>
+              </ul>
+              <div class="pill-row">
+                <span class="pill">Unity</span><span class="pill">VR Interaction</span><span class="pill">UI/UX</span>
+              </div>
+            </div>
+          </article>
 
-      <article class="project reveal" style="--proj-color:var(--tag-3d); --proj-color-soft:var(--tag-3d-soft);">
-        <div class="project-media">
-          <div class="carousel" tabindex="0" aria-label="Carpenter's Shed screenshots">
-            <div class="carousel-track">
-              <div class="carousel-slide"><img src="Perpective.png" alt="Carpenter's Shed screenshot 1" data-filename="Perpective.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Scene1.png" alt="Carpenter's Shed screenshot 2" data-filename="Scene1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Chair1.png" alt="Carpenter's Shed screenshot 3" data-filename="Chair1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Chisel3.png" alt="Carpenter's Shed screenshot 4" data-filename="Chisel3.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Hammer3.png" alt="Carpenter's Shed screenshot 5" data-filename="Hammer3.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Saw3.png" alt="Carpenter's Shed screenshot 6" data-filename="Saw3.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="ScrewSS1.png" alt="Carpenter's Shed screenshot 7" data-filename="ScrewSS1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Shelf1.png" alt="Carpenter's Shed screenshot 8" data-filename="Shelf1.png" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="Top.png" alt="Carpenter's Shed screenshot 9" data-filename="Top.png" onerror="portfolioImgFallback(this)"></div>
+          <article class="project" style="--proj-color:var(--tag-rpg); --proj-color-soft:var(--tag-rpg-soft);">
+            <div class="project-media">
+              <div class="carousel" tabindex="0" aria-label="C.U.R.E. screenshots">
+                <div class="carousel-track">
+                  <div class="carousel-slide"><img src="CURE-menu.png" alt="C.U.R.E. screenshot 1" data-filename="CURE-menu.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="CURE-start.png" alt="C.U.R.E. screenshot 2" data-filename="CURE-start.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="CURE-enemies.png" alt="C.U.R.E. screenshot 3" data-filename="CURE-enemies.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="CURE-bosscode.png" alt="C.U.R.E. screenshot 4" data-filename="CURE-bosscode.png" onerror="portfolioImgFallback(this)"></div>
+                </div>
+                <div class="carousel-progress"></div>
+                <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+                <div class="carousel-dots"></div>
+                <div class="zoom-hint" aria-hidden="true">&#128269;</div>
+              </div>
             </div>
-            <div class="carousel-progress"></div>
-            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
-            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
-            <div class="carousel-dots"></div>
-            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <span class="project-tag">3D Isometric Diorama</span>
-          <h3 class="project-title">Carpenter's Shed</h3>
-          <p class="project-role">3D Environment Artist</p>
-          <ul class="desc-list">
-            <li>Modeled and textured a highly detailed 3D diorama, utilizing mirror modifiers, screw modifiers, and asset instancing to optimize workflow.</li>
-            <li>Applied realistic texturing, lighting, and environmental storytelling to create a compelling "work-in-progress" narrative.</li>
-          </ul>
-          <div class="pill-row">
-            <span class="pill">Blender</span><span class="pill">Texturing</span><span class="pill">Lighting</span>
-          </div>
-        </div>
-      </article>
+            <div class="project-body">
+              <span class="project-tag">3D Action RPG</span>
+              <h3 class="project-title">C.U.R.E.</h3>
+              <p class="project-role">Gameplay Programmer — Team Project</p>
+              <ul class="desc-list">
+                <li>Teamed up to design and develop boss fight mechanics for a 3D action RPG.</li>
+                <li>Programmed and debugged C# scripts in Unity to ensure smooth gameplay and character interactions.</li>
+              </ul>
+              <div class="pill-row">
+                <span class="pill">Unity</span><span class="pill">C#</span><span class="pill">Game Mechanics</span>
+              </div>
+            </div>
+          </article>
 
-      <article class="project reveal" style="--proj-color:var(--tag-anim); --proj-color-soft:var(--tag-anim-soft);">
-        <div class="project-media">
-          <div class="carousel" tabindex="0" aria-label="Cleaning Room screenshots">
-            <div class="carousel-track">
-              <div class="carousel-slide"><img src="cleaningroom-1.jpg" alt="Cleaning Room screenshot 1" data-filename="cleaningroom-1.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="cleaningroom-2.jpg" alt="Cleaning Room screenshot 2" data-filename="cleaningroom-2.jpg" onerror="portfolioImgFallback(this)"></div>
-              <div class="carousel-slide"><img src="cleaningroom-3.jpg" alt="Cleaning Room screenshot 3" data-filename="cleaningroom-3.jpg" onerror="portfolioImgFallback(this)"></div>
+          <article class="project" style="--proj-color:var(--tag-3d); --proj-color-soft:var(--tag-3d-soft);">
+            <div class="project-media">
+              <div class="carousel" tabindex="0" aria-label="Carpenter's Shed screenshots">
+                <div class="carousel-track">
+                  <div class="carousel-slide"><img src="Perpective.png" alt="Carpenter's Shed screenshot 1" data-filename="Perpective.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Scene1.png" alt="Carpenter's Shed screenshot 2" data-filename="Scene1.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Chair1.png" alt="Carpenter's Shed screenshot 3" data-filename="Chair1.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Chisel3.png" alt="Carpenter's Shed screenshot 4" data-filename="Chisel3.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Hammer3.png" alt="Carpenter's Shed screenshot 5" data-filename="Hammer3.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Saw3.png" alt="Carpenter's Shed screenshot 6" data-filename="Saw3.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="ScrewSS1.png" alt="Carpenter's Shed screenshot 7" data-filename="ScrewSS1.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Shelf1.png" alt="Carpenter's Shed screenshot 8" data-filename="Shelf1.png" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="Top.png" alt="Carpenter's Shed screenshot 9" data-filename="Top.png" onerror="portfolioImgFallback(this)"></div>
+                </div>
+                <div class="carousel-progress"></div>
+                <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+                <div class="carousel-dots"></div>
+                <div class="zoom-hint" aria-hidden="true">&#128269;</div>
+              </div>
             </div>
-            <div class="carousel-progress"></div>
-            <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
-            <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
-            <div class="carousel-dots"></div>
-            <div class="zoom-hint" aria-hidden="true">&#128269;</div>
-          </div>
+            <div class="project-body">
+              <span class="project-tag">3D Isometric Diorama</span>
+              <h3 class="project-title">Carpenter's Shed</h3>
+              <p class="project-role">3D Environment Artist</p>
+              <ul class="desc-list">
+                <li>Modeled and textured a highly detailed 3D diorama, utilizing mirror modifiers, screw modifiers, and asset instancing to optimize workflow.</li>
+                <li>Applied realistic texturing, lighting, and environmental storytelling to create a compelling "work-in-progress" narrative.</li>
+              </ul>
+              <div class="pill-row">
+                <span class="pill">Blender</span><span class="pill">Texturing</span><span class="pill">Lighting</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project" style="--proj-color:var(--tag-anim); --proj-color-soft:var(--tag-anim-soft);">
+            <div class="project-media">
+              <div class="carousel" tabindex="0" aria-label="Cleaning Room screenshots">
+                <div class="carousel-track">
+                  <div class="carousel-slide"><img src="cleaningroom-1.jpg" alt="Cleaning Room screenshot 1" data-filename="cleaningroom-1.jpg" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="cleaningroom-2.jpg" alt="Cleaning Room screenshot 2" data-filename="cleaningroom-2.jpg" onerror="portfolioImgFallback(this)"></div>
+                  <div class="carousel-slide"><img src="cleaningroom-3.jpg" alt="Cleaning Room screenshot 3" data-filename="cleaningroom-3.jpg" onerror="portfolioImgFallback(this)"></div>
+                </div>
+                <div class="carousel-progress"></div>
+                <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+                <div class="carousel-dots"></div>
+                <div class="zoom-hint" aria-hidden="true">&#128269;</div>
+              </div>
+            </div>
+            <div class="project-body">
+              <span class="project-tag">3D Animation</span>
+              <h3 class="project-title">Cleaning Room</h3>
+              <p class="project-role">3D Animator</p>
+              <ul class="desc-list">
+                <li>Developed a cohesive 3D animated sequence featuring environmental interactions, utilizing technical skills in keyframing, timeline animation, and character mechanics.</li>
+              </ul>
+              <div class="pill-row">
+                <span class="pill">Blender</span><span class="pill">Keyframing</span><span class="pill">Timeline Animation</span>
+              </div>
+            </div>
+          </article>
+
         </div>
-        <div class="project-body">
-          <span class="project-tag">3D Animation</span>
-          <h3 class="project-title">Cleaning Room</h3>
-          <p class="project-role">3D Animator</p>
-          <ul class="desc-list">
-            <li>Developed a cohesive 3D animated sequence featuring environmental interactions, utilizing technical skills in keyframing, timeline animation, and character mechanics.</li>
-          </ul>
-          <div class="pill-row">
-            <span class="pill">Blender</span><span class="pill">Keyframing</span><span class="pill">Timeline Animation</span>
-          </div>
-        </div>
-      </article>
+
+        <button class="proj-slider-btn prev" aria-label="Previous Project">&#10094;</button>
+        <button class="proj-slider-btn next" aria-label="Next Project">&#10095;</button>
+      </div>
+
     </div>
   </section>
 
@@ -1008,6 +1086,77 @@
 
     allCarousels.push({ stop: stopAutoplay, start: startAutoplay });
   }
+
+  /* ---------- EXPANDING PROJECT SLIDER ---------- */
+  const projTrack = document.getElementById('projectsTrack');
+  const projCards = Array.from(projTrack.querySelectorAll('.project'));
+  const projNextBtn = document.querySelector('.proj-slider-btn.next');
+  const projPrevBtn = document.querySelector('.proj-slider-btn.prev');
+  let currentProjIndex = 0;
+
+  function updateProjectSlider() {
+    let offset = 0;
+
+    projCards.forEach((card, index) => {
+      if (index === currentProjIndex) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+
+      // Calculate track translation (slide left)
+      if (index < currentProjIndex) {
+        // Add the width of passed cards plus the 24px gap
+        offset += card.offsetWidth + 24; 
+      }
+    });
+
+    // Move the entire track
+    projTrack.style.transform = `translateX(-${offset}px)`;
+
+    // Fix internal image carousels:
+    // Because the card size changes dynamically, the internal image slider needs to recalculate its width.
+    // Triggering a window resize event forces the existing initCarousel logic to update.
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 600); // Wait for CSS transition to finish
+  }
+
+  // Next Button
+  if(projNextBtn) {
+    projNextBtn.addEventListener('click', () => {
+      if (currentProjIndex < projCards.length - 1) {
+        currentProjIndex++;
+        updateProjectSlider();
+      }
+    });
+  }
+
+  // Previous Button
+  if(projPrevBtn) {
+    projPrevBtn.addEventListener('click', () => {
+      if (currentProjIndex > 0) {
+        currentProjIndex--;
+        updateProjectSlider();
+      }
+    });
+  }
+
+  // Click an inactive card to expand it
+  projCards.forEach((card, index) => {
+    card.addEventListener('click', (e) => {
+      // Don't trigger if they are clicking the internal image carousel arrows
+      if (e.target.closest('.carousel-btn') || e.target.closest('.carousel-dots')) return;
+      
+      if (!card.classList.contains('active')) {
+        currentProjIndex = index;
+        updateProjectSlider();
+      }
+    });
+  });
+
+  // Run once on load to establish positions
+  window.addEventListener('load', updateProjectSlider);
 </script>
 
 </body>
