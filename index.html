@@ -228,6 +228,12 @@
     cursor: default;
   }
 
+  /* NEW: State when NO project is active (initial view) */
+  .projects-track.no-active .project {
+    opacity: 1;
+    flex: 1 1 0; /* Distribute them evenly across the container */
+  }
+
   /* Hide lower details on inactive cards */
   .project:not(.active) .project-role,
   .project:not(.active) p.desc,
@@ -296,6 +302,9 @@
   @media (max-width:900px){
     .project.active { flex: 0 0 100%; } 
     .project { flex: 0 0 85%; }
+    
+    /* On mobile, revert to swiping instead of shrinking them all to tiny slivers */
+    .projects-track.no-active .project { flex: 0 0 85%; }
     
     /* Bring arrows back on mobile, but make them slightly smaller */
     .proj-slider-btn { 
@@ -563,10 +572,12 @@
         <p class="sub">Drag or swipe through each gallery, and click a project card to expand its details.</p>
       </div>
 
+      <!-- ADDED 'no-active' class to track -->
       <div class="projects-slider-container reveal">
-        <div class="projects-track" id="projectsTrack">
+        <div class="projects-track no-active" id="projectsTrack">
 
-          <article class="project active" style="--proj-color:var(--tag-vr); --proj-color-soft:var(--tag-vr-soft);">
+          <!-- REMOVED 'active' class from first project -->
+          <article class="project" style="--proj-color:var(--tag-vr); --proj-color-soft:var(--tag-vr-soft);">
             <div class="project-media">
               <div class="carousel" tabindex="0" aria-label="SCHIZOMIND VR screenshots">
                 <div class="carousel-track">
@@ -1131,13 +1142,26 @@
   const projCards = Array.from(projTrack.querySelectorAll('.project'));
   const projNextBtn = document.querySelector('.proj-slider-btn.next');
   const projPrevBtn = document.querySelector('.proj-slider-btn.prev');
-  let currentProjIndex = 0;
+  
+  // Set to -1 to ensure no card is focused initially
+  let currentProjIndex = -1; 
 
   function updateProjectSlider() {
-    // 280px is the inactive card width, 24px is the flex gap. 
-    // This perfectly calculates the slide distance without relying on mid-animation widths.
     const INACTIVE_WIDTH = 280; 
     const GAP = 24; 
+    
+    // If no card is active (initial state or zoomed out)
+    if (currentProjIndex === -1) {
+      projTrack.classList.add('no-active');
+      projTrack.style.transform = `translateX(0px)`;
+      projCards.forEach(card => card.classList.remove('active'));
+      return; // Stop here, no need to calculate offsets
+    }
+
+    // A card is active, remove the "no-active" state
+    projTrack.classList.remove('no-active');
+    
+    // Calculate the distance to slide left
     let offset = currentProjIndex * (INACTIVE_WIDTH + GAP);
 
     projCards.forEach((card, index) => {
@@ -1155,7 +1179,11 @@
   // Next Button
   if(projNextBtn) {
     projNextBtn.addEventListener('click', () => {
-      if (currentProjIndex < projCards.length - 1) {
+      if (currentProjIndex === -1) {
+        // If nothing is active, jump to the first one
+        currentProjIndex = 0;
+        updateProjectSlider();
+      } else if (currentProjIndex < projCards.length - 1) {
         currentProjIndex++;
         updateProjectSlider();
       }
@@ -1167,6 +1195,10 @@
     projPrevBtn.addEventListener('click', () => {
       if (currentProjIndex > 0) {
         currentProjIndex--;
+        updateProjectSlider();
+      } else if (currentProjIndex === 0) {
+        // Optional: If they are on the first one and hit back, zoom all the way out
+        currentProjIndex = -1;
         updateProjectSlider();
       }
     });
