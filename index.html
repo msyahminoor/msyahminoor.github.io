@@ -234,11 +234,7 @@
     flex: 1 1 0; /* Distribute them evenly across the container */
   }
 
-  /* Hide lower details on inactive cards */
-  .project:not(.active) .project-role,
-  .project:not(.active) p.desc,
-  .project:not(.active) ul.desc-list,
-  .project:not(.active) .pill-row,
+  /* Hide carousel controls on ALL inactive cards (including overview) to keep it clean */
   .project:not(.active) .carousel-btn,
   .project:not(.active) .carousel-progress,
   .project:not(.active) .carousel-dots,
@@ -246,8 +242,16 @@
     display: none; 
   }
 
-  /* Keep the title looking clean when compressed */
-  .project:not(.active) .project-title {
+  /* Hide text details on inactive cards ONLY when another card is active */
+  .projects-track:not(.no-active) .project:not(.active) .project-role,
+  .projects-track:not(.no-active) .project:not(.active) p.desc,
+  .projects-track:not(.no-active) .project:not(.active) ul.desc-list,
+  .projects-track:not(.no-active) .project:not(.active) .pill-row {
+    display: none; 
+  }
+
+  /* Keep the title looking clean when compressed next to an active card */
+  .projects-track:not(.no-active) .project:not(.active) .project-title {
     font-size: 19px;
     white-space: nowrap;
     overflow: hidden;
