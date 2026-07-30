@@ -43,10 +43,7 @@
 
   body{
     margin:0;
-    background:
-      radial-gradient(1100px 550px at 88% -10%, rgba(232,163,61,0.09), transparent 60%),
-      radial-gradient(900px 500px at -10% 40%, rgba(110,200,192,0.05), transparent 55%),
-      var(--bg);
+    background: var(--bg);
     color:var(--text);
     font-family:var(--font-body);
     line-height:1.6;
@@ -62,6 +59,50 @@
     pointer-events:none;
     z-index:0;
   }
+
+  /* --- AMBIENT ANIMATED BACKGROUND --- */
+  .ambient-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ambient-bg .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.12; /* Kept very low so it's not messy */
+    animation: float 20s infinite ease-in-out alternate;
+  }
+  .ambient-bg .orb-1 {
+    width: 600px; height: 600px;
+    background: var(--accent);
+    top: -100px; right: -100px;
+    animation-delay: 0s;
+  }
+  .ambient-bg .orb-2 {
+    width: 500px; height: 500px;
+    background: var(--tag-vr);
+    bottom: -150px; left: -100px;
+    animation-duration: 25s;
+    animation-delay: -5s;
+  }
+  .ambient-bg .orb-3 {
+    width: 400px; height: 400px;
+    background: var(--tag-anim);
+    top: 40%; left: 30%;
+    animation-duration: 22s;
+    animation-delay: -10s;
+  }
+
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
   header.nav, main, footer{ position:relative; z-index:1; }
 
   a{ color:inherit; }
@@ -454,6 +495,13 @@
 </head>
 <body>
 
+<!-- Ambient Glow Layer -->
+<div class="ambient-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
 <header class="nav">
   <div class="nav-inner">
     <a href="#top" class="nav-brand">Syahmi<span>.</span></a>
@@ -664,8 +712,8 @@
                 <div class="carousel-slide"><img src="3DAnimation (1).png" alt="Cleaning Room screenshot 1" data-filename="3DAnimation (1).png" onerror="portfolioImgFallback(this)"></div>
                 <div class="carousel-slide"><img src="3DAnimation (2).png" alt="Cleaning Room screenshot 2" data-filename="3DAnimation (2).png" onerror="portfolioImgFallback(this)"></div>
                 <div class="carousel-slide"><img src="3DAnimation (3).png" alt="Cleaning Room screenshot 3" data-filename="3DAnimation (3).png" onerror="portfolioImgFallback(this)"></div>
-                <div class="carousel-slide"><img src="3DAnimation (4).png" alt="Cleaning Room screenshot 3" data-filename="3DAnimation (4).png" onerror="portfolioImgFallback(this)"></div>
-                <div class="carousel-slide"><img src="3DAnimation (5).png" alt="Cleaning Room screenshot 3" data-filename="3DAnimation (5).png" onerror="portfolioImgFallback(this)"></div>
+                <div class="carousel-slide"><img src="3DAnimation (4).png" alt="Cleaning Room screenshot 4" data-filename="3DAnimation (4).png" onerror="portfolioImgFallback(this)"></div>
+                <div class="carousel-slide"><img src="3DAnimation (5).png" alt="Cleaning Room screenshot 5" data-filename="3DAnimation (5).png" onerror="portfolioImgFallback(this)"></div>
               </div>
               <div class="carousel-progress"></div>
               <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
