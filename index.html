@@ -77,11 +77,13 @@
   /* Default wrapper for text and standard content */
   .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
 
-  /* New wrapper specifically for the projects grid */
+  /* New wrapper specifically for the sliding projects */
   .projects-wrap {
-    max-width: 1280px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px;
+    /* Gradient mask creates the fading edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
 
   .eyebrow{
@@ -202,12 +204,29 @@
   .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
   .pill{ font-size:13.5px; padding:7px 12px; border-radius:999px; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); }
 
-  /* --- PROJECTS GRID --- */
+  /* --- PROJECTS SLIDER --- */
   .projects-track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
     gap: 24px;
-    padding-bottom: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* Pushing padding inside the scroll container allows breathing space before edges */
+    padding: 30px 10%;
+    /* Offset margins prevent box-shadows from clipping during scroll */
+    margin: -30px 0;
+    
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+  }
+  .projects-track::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+  .projects-track.is-dragging {
+    scroll-snap-type: none; /* Disable snapping while dragging for smoothness */
+    cursor: grab;
+  }
+  .projects-track.is-dragging:active {
+    cursor: grabbing;
   }
 
   .project {
@@ -218,11 +237,13 @@
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Fixed width prevents zooming/expanding */
+    flex: 0 0 340px; 
+    scroll-snap-align: center; /* Snaps beautifully into center focus */
+    transition: box-shadow 0.2s ease;
   }
   .project:hover { 
-    transform: translateY(-4px);
-    box-shadow: 0 16px 36px -20px rgba(0,0,0,0.6); 
+    box-shadow: 0 12px 30px -15px rgba(0,0,0,0.7); 
   }
 
   .project-media{ position:relative; padding:20px 20px 0; }
@@ -248,14 +269,14 @@
   
   .project .pill-row { margin-top: auto; }
   .project .pill-row .pill{ font-size:12px; padding:5px 11px; }
-
-  @media (max-width:1100px){
-    .projects-track { grid-template-columns: repeat(2, 1fr); }
-  }
   
-  @media (max-width:600px){
-    .projects-track { grid-template-columns: 1fr; }
-    .projects-wrap { padding: 0 20px; }
+  @media (max-width:768px){
+    .projects-wrap {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+    }
+    .projects-track { padding: 30px 15%; }
+    .project { flex: 0 0 280px; }
     .project-media{ padding:14px 14px 0; }
     .project-body{ padding:22px 20px 26px; }
   }
@@ -513,11 +534,11 @@
       <div class="section-head reveal">
         <p class="eyebrow">Projects</p>
         <h2>Selected work</h2>
-        <p class="sub">Drag or swipe through each gallery, and click an image to view it enlarged.</p>
+        <p class="sub">Swipe or drag through each project, and click an image to view it enlarged.</p>
       </div>
     </div>
 
-    <!-- Wider breakout wrap specifically for the grid -->
+    <!-- Wider breakout wrap specifically for the sliding mask -->
     <div class="projects-wrap reveal">
       <div class="projects-track" id="projectsTrack">
 
@@ -1046,7 +1067,7 @@
     carousel.addEventListener('focusin', stopAutoplay);
     carousel.addEventListener('focusout', startAutoplay);
 
-    // pointer drag / swipe
+    // pointer drag / swipe inside image carousel
     track.addEventListener('pointerdown', (e) => {
       dragging = true;
       dragMoved = false;
@@ -1103,6 +1124,42 @@
     });
     resizeObserver.observe(carousel);
   }
+
+  /* ---------- MAIN HORIZONTAL SLIDER DESKTOP DRAG SUPPORT ---------- */
+  // Allows users with a standard mouse to click and drag the main project row
+  const mainTrack = document.getElementById('projectsTrack');
+  let isMainDragging = false;
+  let startXMain;
+  let scrollLeftMain;
+
+  mainTrack.addEventListener('pointerdown', (e) => {
+    // If the user is trying to drag the internal image carousel, don't interfere
+    if (e.target.closest('.carousel') || e.target.closest('.proj-slider-btn')) return;
+    
+    isMainDragging = true;
+    mainTrack.classList.add('is-dragging');
+    startXMain = e.pageX - mainTrack.offsetLeft;
+    scrollLeftMain = mainTrack.scrollLeft;
+  });
+
+  mainTrack.addEventListener('pointerleave', () => {
+    isMainDragging = false;
+    mainTrack.classList.remove('is-dragging');
+  });
+
+  mainTrack.addEventListener('pointerup', () => {
+    isMainDragging = false;
+    mainTrack.classList.remove('is-dragging');
+  });
+
+  mainTrack.addEventListener('pointermove', (e) => {
+    if (!isMainDragging) return;
+    e.preventDefault();
+    const x = e.pageX - mainTrack.offsetLeft;
+    const walk = (x - startXMain) * 1.5; // Scroll speed multiplier
+    mainTrack.scrollLeft = scrollLeftMain - walk;
+  });
+
 </script>
 
 </body>
