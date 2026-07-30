@@ -30,6 +30,8 @@
     --tag-3d-soft:rgba(217,131,107,0.14);
     --tag-anim:#b98bd9;
     --tag-anim-soft:rgba(185,139,217,0.14);
+    --tag-web:#6a9fd8;
+    --tag-web-soft:rgba(106,159,216,0.14);
     --radius:16px;
     --font-display:'Sora', sans-serif;
     --font-body:'Inter', sans-serif;
@@ -77,9 +79,9 @@
 
   /* New wrapper specifically for the projects grid */
   .projects-wrap {
-    max-width: 1280px; /* Reduced from 1480px to give more breathing room */
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 40px; /* Increased side padding */
+    padding: 0 40px;
   }
 
   .eyebrow{
@@ -194,12 +196,11 @@
   .section-head p.sub{ color:var(--text-dim); margin:10px 0 0; max-width:56ch; font-size:15px; }
 
   /* TOOLKIT */
-  .stack-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
+  .stack-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
   .stack-card{ background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius); padding:22px; }
   .stack-card h3{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin:0 0 16px; font-weight:700; }
   .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
   .pill{ font-size:13.5px; padding:7px 12px; border-radius:999px; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); }
-  @media (max-width:880px){ .stack-grid{ grid-template-columns:1fr; } }
 
   /* --- PROJECTS GRID --- */
   .projects-track {
@@ -230,7 +231,7 @@
     padding: 26px 24px 30px; 
     display: flex; 
     flex-direction: column; 
-    flex: 1; /* Pushes content down properly */
+    flex: 1;
   }
   
   .project-tag{
@@ -245,17 +246,14 @@
   .project ul.desc-list li{ font-size:14.5px; color:var(--text); margin-bottom:7px; }
   .project ul.desc-list li:last-child{ margin-bottom:0; }
   
-  /* Stick tags to the bottom */
   .project .pill-row { margin-top: auto; }
   .project .pill-row .pill{ font-size:12px; padding:5px 11px; }
 
   @media (max-width:1100px){
-    /* 2 columns on tablets */
     .projects-track { grid-template-columns: repeat(2, 1fr); }
   }
   
   @media (max-width:600px){
-    /* 1 column on phones */
     .projects-track { grid-template-columns: 1fr; }
     .projects-wrap { padding: 0 20px; }
     .project-media{ padding:14px 14px 0; }
@@ -393,9 +391,12 @@
 
   /* CONTACT / FOOTER */
   footer{ padding:70px 0 50px; border-top:1px solid var(--border-soft); text-align:center; }
-  footer .eyebrow { 
-    display: block; 
-    text-align: center; 
+  footer .eyebrow{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    width:100%;
   }
   footer .eyebrow::before{ display:none; }
   footer h2{ font-family:var(--font-display); font-size:clamp(26px, 4vw, 38px); margin:0 0 16px; }
@@ -441,7 +442,7 @@
           <a class="btn primary" href="mailto:muhammadsyahminoor@gmail.com">Email me</a>
           <a class="btn" href="https://www.linkedin.com/in/muhd-syahmi-noor" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn" href="https://msyahminoor.github.io" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="Resume Syahmi.pdf" target="_blank" rel="noopener">Download résumé</a>
+          <a class="btn" href="Resume_Syahmi.pdf" target="_blank" rel="noopener">Download résumé</a>
         </div>
       </div>
       <div class="hero-photo-col hero-anim" style="transition-delay:.12s;">
@@ -481,10 +482,25 @@
           </div>
         </div>
         <div class="stack-card">
+          <h3>AI Prompting &amp; Assistance</h3>
+          <div class="pill-row">
+            <span class="pill">Gemini</span><span class="pill">Claude</span><span class="pill">ChatGPT</span>
+          </div>
+        </div>
+        <div class="stack-card">
           <h3>Productivity &amp; Language</h3>
           <div class="pill-row">
             <span class="pill">Word</span><span class="pill">Excel</span><span class="pill">PowerPoint</span>
+            <span class="pill">Google Docs</span><span class="pill">Google Sheets</span>
             <span class="pill">Malay — Native</span><span class="pill">English — Fluent</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <h3>Soft Skills</h3>
+          <div class="pill-row">
+            <span class="pill">Problem-Solving</span><span class="pill">Communication</span>
+            <span class="pill">Adaptability</span><span class="pill">Teamwork</span>
+            <span class="pill">Attention to Detail</span><span class="pill">Eager to Learn</span>
           </div>
         </div>
       </div>
@@ -630,6 +646,35 @@
           </div>
         </article>
 
+        <article class="project" style="--proj-color:var(--tag-web); --proj-color-soft:var(--tag-web-soft);">
+          <div class="project-media">
+            <div class="carousel" tabindex="0" aria-label="Pink Corner screenshots">
+              <div class="carousel-track">
+                <div class="carousel-slide"><img src="pinkcorner-1.jpg" alt="Pink Corner screenshot 1" data-filename="pinkcorner-1.jpg" onerror="portfolioImgFallback(this)"></div>
+                <div class="carousel-slide"><img src="pinkcorner-2.jpg" alt="Pink Corner screenshot 2" data-filename="pinkcorner-2.jpg" onerror="portfolioImgFallback(this)"></div>
+                <div class="carousel-slide"><img src="pinkcorner-3.jpg" alt="Pink Corner screenshot 3" data-filename="pinkcorner-3.jpg" onerror="portfolioImgFallback(this)"></div>
+              </div>
+              <div class="carousel-progress"></div>
+              <button class="carousel-btn prev" aria-label="Previous image">&#10094;</button>
+              <button class="carousel-btn next" aria-label="Next image">&#10095;</button>
+              <div class="carousel-dots"></div>
+              <div class="zoom-hint" aria-hidden="true">&#128269;</div>
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">Digital Marketing</span>
+            <h3 class="project-title">Pink Corner</h3>
+            <p class="project-role">Digital Marketing &amp; Branding — Team Project</p>
+            <ul class="desc-list">
+              <li>Executed a comprehensive digital marketing campaign for a local food establishment, establishing their online presence by configuring Google Maps and digital delivery platforms.</li>
+              <li>Designed branding assets while tracking and analyzing campaign completion metrics to evaluate digital engagement and overall project success.</li>
+            </ul>
+            <div class="pill-row">
+              <span class="pill">Canva</span><span class="pill">Google Maps</span><span class="pill">Campaign Analytics</span>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -670,7 +715,7 @@
             <p class="role">Program Committee &amp; Facilitator</p>
             <p class="org">UniSZA Volunteer Club</p>
             <p class="when">8 Jun 2024</p>
-            <p class="note">Organised and ran a cultural games event for local students at MRSM Besut, directing interactive modules as lead announcer.</p>
+            <p class="note">Organised and ran a cultural games event for local students at MRSM Besut, communicating rules, guiding participants, and maintaining an energetic atmosphere.</p>
           </div>
         </div>
 
@@ -704,7 +749,7 @@
           <div class="cred-card">
             <span class="cred-stamp">&#10003;</span>
             <p class="cred-kicker">Micro-Credential · UniSZA</p>
-            <h3 class="cred-title">Fundamental of Commercial Photography</h3>
+            <h3 class="cred-title">Fundamentals of Commercial Photography</h3>
             <p class="cred-issuer">December 2025</p>
             <p class="cred-desc">Learned visual strategy techniques for producing polished digital assets used in social media marketing and promotional campaigns.</p>
           </div>
