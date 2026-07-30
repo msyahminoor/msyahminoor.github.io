@@ -77,13 +77,13 @@
   /* Default wrapper for text and standard content */
   .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
 
-  /* New wrapper specifically for the sliding projects */
+  /* Wrapper specifically for the sliding projects */
   .projects-wrap {
     max-width: 1400px;
     margin: 0 auto;
     /* Gradient mask creates the fading edges */
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
   }
 
   .eyebrow{
@@ -197,10 +197,30 @@
   .section-head h2{ font-family:var(--font-display); font-size:clamp(24px, 3vw, 30px); margin:0; letter-spacing:-0.01em; }
   .section-head p.sub{ color:var(--text-dim); margin:10px 0 0; max-width:56ch; font-size:15px; }
 
-  /* TOOLKIT */
-  .stack-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
-  .stack-card{ background:var(--bg-panel); border:1px solid var(--border-soft); border-radius:var(--radius); padding:22px; }
-  .stack-card h3{ font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); margin:0 0 16px; font-weight:700; }
+  /* DYNAMIC TOOLKIT LAYOUT (Fixed) */
+  .stack-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+  }
+  .stack-card { 
+    background: var(--bg-panel); 
+    border: 1px solid var(--border-soft); 
+    border-radius: var(--radius); 
+    padding: 24px; 
+    /* The magic flex rule that balances out odd numbers of cards cleanly */
+    flex: 1 1 300px; 
+    display: flex;
+    flex-direction: column;
+  }
+  .stack-card h3 { 
+    font-size: 13px; 
+    text-transform: uppercase; 
+    letter-spacing: 0.08em; 
+    color: var(--text-faint); 
+    margin: 0 0 16px; 
+    font-weight: 700; 
+  }
   .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
   .pill{ font-size:13.5px; padding:7px 12px; border-radius:999px; background:var(--bg-panel-alt); border:1px solid var(--border); color:var(--text); }
 
@@ -237,19 +257,20 @@
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
-    /* Fixed width prevents zooming/expanding */
-    flex: 0 0 340px; 
+    /* Shrunk back down to the smaller, cleaner grid size */
+    flex: 0 0 280px; 
     scroll-snap-align: center; /* Snaps beautifully into center focus */
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
   .project:hover { 
+    transform: translateY(-4px); /* Clean little lift effect */
     box-shadow: 0 12px 30px -15px rgba(0,0,0,0.7); 
   }
 
   .project-media{ position:relative; padding:20px 20px 0; }
   
   .project-body { 
-    padding: 26px 24px 30px; 
+    padding: 24px 24px 28px; 
     display: flex; 
     flex-direction: column; 
     flex: 1;
@@ -276,7 +297,8 @@
       mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     }
     .projects-track { padding: 30px 15%; }
-    .project { flex: 0 0 280px; }
+    /* Scales down just slightly more on tiny phones */
+    .project { flex: 0 0 270px; }
     .project-media{ padding:14px 14px 0; }
     .project-body{ padding:22px 20px 26px; }
   }
