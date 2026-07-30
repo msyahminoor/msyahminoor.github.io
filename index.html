@@ -208,7 +208,6 @@
     border: 1px solid var(--border-soft); 
     border-radius: var(--radius); 
     padding: 24px; 
-    /* The magic flex rule that balances out odd numbers of cards cleanly */
     flex: 1 1 300px; 
     display: flex;
     flex-direction: column;
@@ -241,12 +240,10 @@
   .projects-track::-webkit-scrollbar {
     display: none; /* Hide scrollbar Chrome/Safari */
   }
-  .projects-track.is-dragging {
-    scroll-snap-type: none; /* Disable snapping while dragging for smoothness */
-    cursor: grab;
-  }
-  .projects-track.is-dragging:active {
-    cursor: grabbing;
+  
+  /* Class applied via JS to ensure smooth auto-scrolling */
+  .projects-track.is-edge-scrolling {
+    scroll-snap-type: none; 
   }
 
   .project {
@@ -257,7 +254,7 @@
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
-    /* Shrunk back down to the smaller, cleaner grid size */
+    /* Fixed width prevents zooming/expanding */
     flex: 0 0 280px; 
     scroll-snap-align: center; /* Snaps beautifully into center focus */
     transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -297,7 +294,6 @@
       mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
     }
     .projects-track { padding: 30px 15%; }
-    /* Scales down just slightly more on tiny phones */
     .project { flex: 0 0 270px; }
     .project-media{ padding:14px 14px 0; }
     .project-body{ padding:22px 20px 26px; }
@@ -556,7 +552,7 @@
       <div class="section-head reveal">
         <p class="eyebrow">Projects</p>
         <h2>Selected work</h2>
-        <p class="sub">Swipe or drag through each project, and click an image to view it enlarged.</p>
+        <p class="sub">Swipe or move your mouse toward the edges to browse. Click an image to view it enlarged.</p>
       </div>
     </div>
 
@@ -1147,39 +1143,67 @@
     resizeObserver.observe(carousel);
   }
 
-  /* ---------- MAIN HORIZONTAL SLIDER DESKTOP DRAG SUPPORT ---------- */
-  // Allows users with a standard mouse to click and drag the main project row
+  /* ---------- EDGE-HOVER AUTO SCROLL FOR DESKTOP ---------- */
   const mainTrack = document.getElementById('projectsTrack');
-  let isMainDragging = false;
-  let startXMain;
-  let scrollLeftMain;
+  const projectsWrap = document.querySelector('.projects-wrap');
+  
+  let scrollAnimationFrame;
+  let scrollSpeed = 0;
+  const maxSpeed = 6; // Adjust this to change how fast it glides at the very edge
+  const edgeThreshold = 150; // The distance from the edge (in pixels) that triggers the scroll
 
-  mainTrack.addEventListener('pointerdown', (e) => {
-    // If the user is trying to drag the internal image carousel, don't interfere
-    if (e.target.closest('.carousel') || e.target.closest('.proj-slider-btn')) return;
-    
-    isMainDragging = true;
-    mainTrack.classList.add('is-dragging');
-    startXMain = e.pageX - mainTrack.offsetLeft;
-    scrollLeftMain = mainTrack.scrollLeft;
+  function autoScroll() {
+    if (scrollSpeed !== 0) {
+      mainTrack.scrollLeft += scrollSpeed;
+      scrollAnimationFrame = requestAnimationFrame(autoScroll);
+    } else {
+      scrollAnimationFrame = null;
+      // Re-enable snapping when the mouse stops moving the track
+      mainTrack.classList.remove('is-edge-scrolling');
+    }
+  }
+
+  projectsWrap.addEventListener('mousemove', (e) => {
+    // Don't auto-scroll if hovering over the internal image carousel buttons or lightboxes
+    if (e.target.closest('.carousel-btn') || e.target.closest('.carousel-dots')) {
+       scrollSpeed = 0;
+       return;
+    }
+
+    const rect = projectsWrap.getBoundingClientRect();
+    const x = e.clientX - rect.left; 
+    const width = rect.width;
+
+    if (x < edgeThreshold) {
+      // Mouse is near the left edge
+      let intensity = (edgeThreshold - x) / edgeThreshold;
+      scrollSpeed = -(maxSpeed * intensity);
+      mainTrack.classList.add('is-edge-scrolling');
+    } else if (x > width - edgeThreshold) {
+      // Mouse is near the right edge
+      let intensity = (x - (width - edgeThreshold)) / edgeThreshold;
+      scrollSpeed = maxSpeed * intensity;
+      mainTrack.classList.add('is-edge-scrolling');
+    } else {
+      // Mouse is safely in the middle
+      scrollSpeed = 0;
+      mainTrack.classList.remove('is-edge-scrolling');
+    }
+
+    // Start the animation loop if it has speed and isn't already running
+    if (scrollSpeed !== 0 && !scrollAnimationFrame) {
+      scrollAnimationFrame = requestAnimationFrame(autoScroll);
+    }
   });
 
-  mainTrack.addEventListener('pointerleave', () => {
-    isMainDragging = false;
-    mainTrack.classList.remove('is-dragging');
-  });
-
-  mainTrack.addEventListener('pointerup', () => {
-    isMainDragging = false;
-    mainTrack.classList.remove('is-dragging');
-  });
-
-  mainTrack.addEventListener('pointermove', (e) => {
-    if (!isMainDragging) return;
-    e.preventDefault();
-    const x = e.pageX - mainTrack.offsetLeft;
-    const walk = (x - startXMain) * 1.5; // Scroll speed multiplier
-    mainTrack.scrollLeft = scrollLeftMain - walk;
+  projectsWrap.addEventListener('mouseleave', () => {
+    // Stop scrolling entirely when the mouse leaves the project wrapper
+    scrollSpeed = 0;
+    mainTrack.classList.remove('is-edge-scrolling');
+    if (scrollAnimationFrame) {
+      cancelAnimationFrame(scrollAnimationFrame);
+      scrollAnimationFrame = null;
+    }
   });
 
 </script>
